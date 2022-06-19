@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://unitposition/UnitPosition.gd" type="Script" id=1]
+
+[node name="UnitPosition" type="Position2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true,
+"_gizmo_extents_": 100.0
+}
+
+[node name="DebugLine2D" type="Line2D" parent="."]
