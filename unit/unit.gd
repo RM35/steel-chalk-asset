@@ -32,7 +32,8 @@ func get_drag_data(drag_offset):
 	card_preview.modulate.a = 0.3
 	var preview = Control.new()
 	preview.add_child(card_preview)
-	card_preview.rect_position -= drag_offset
+	print(self.rect_position)
+	card_preview.rect_position -= drag_offset + self.rect_position
 	set_drag_preview(preview)
 	return self
 	
