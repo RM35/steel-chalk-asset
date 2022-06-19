@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Resource",
+"class": "unit_stats",
+"language": "GDScript",
+"path": "res://unit/unit_data/unit_stats.gd"
+} ]
+_global_script_class_icons={
+"unit_stats": ""
+}
+
 [application]
 
 config/name="steel-chalk-asset"
@@ -15,8 +25,8 @@ run/main_scene="res://main.tscn"
 
 [display]
 
-window/size/width=704
-window/size/height=512
+window/size/width=1200
+window/size/height=900
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 

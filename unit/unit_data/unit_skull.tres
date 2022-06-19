@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://unit/unit_data/unit_stats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+unit_name = "SKULL"
+health = 10
+attack = 4
+level = 1
+sprite_region_rect = Rect2( 0, 0, 32, 32 )
