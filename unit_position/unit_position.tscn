@@ -6,7 +6,9 @@
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true,
-"_gizmo_extents_": 100.0
+"_gizmo_extents_": 20.0
 }
 
-[node name="DebugLine2D" type="Line2D" parent="."]
+[node name="Label" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0

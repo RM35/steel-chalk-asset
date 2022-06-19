@@ -15,7 +15,8 @@ run/main_scene="res://main.tscn"
 
 [display]
 
-window/size/width=600
+window/size/width=704
+window/size/height=512
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
