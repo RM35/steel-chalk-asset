@@ -5,3 +5,10 @@
 [node name="Main" type="Node2D"]
 
 [node name="World" parent="." instance=ExtResource( 1 )]
+
+[node name="PlayerTeam" type="Position2D" parent="World"]
+
+[node name="EnemyTeam" type="Position2D" parent="World"]
+
+[node name="Shop" type="Position2D" parent="World"]
+position = Vector2( 256, 512 )
