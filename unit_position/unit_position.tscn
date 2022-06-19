@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://unitposition/UnitPosition.gd" type="Script" id=1]
+[ext_resource path="res://unit_position/unit_position.gd" type="Script" id=1]
 
 [node name="UnitPosition" type="Position2D"]
 script = ExtResource( 1 )
