@@ -5,7 +5,10 @@
 [resource]
 script = ExtResource( 1 )
 unit_name = "SKULL"
-health = 10
-attack = 4
+health = 4
+attack = 1
 level = 1
 sprite_region_rect = Rect2( 0, 0, 32, 32 )
+ability_trigger = 3
+ability_output = 5
+ability_parameters = 1
