@@ -5,6 +5,7 @@
 [node name="World" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 1
 
 [node name="VB" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -13,100 +14,102 @@ custom_constants/separation = 70
 alignment = 1
 
 [node name="EnemyCards" type="HBoxContainer" parent="VB"]
-margin_top = 20.0
+margin_top = 56.0
 margin_right = 1920.0
-margin_bottom = 320.0
-rect_min_size = Vector2( 0, 300 )
+margin_bottom = 332.0
 custom_constants/separation = 20
 alignment = 1
 
 [node name="CardSlot" parent="VB/EnemyCards" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_right = 639.0
-margin_bottom = 300.0
+margin_bottom = 276.0
 
 [node name="CardSlot2" parent="VB/EnemyCards" instance=ExtResource( 1 )]
 margin_left = 659.0
 margin_right = 846.0
-margin_bottom = 300.0
+margin_bottom = 276.0
 
 [node name="CardSlot3" parent="VB/EnemyCards" instance=ExtResource( 1 )]
 margin_left = 866.0
 margin_right = 1053.0
-margin_bottom = 300.0
+margin_bottom = 276.0
 
 [node name="CardSlot4" parent="VB/EnemyCards" instance=ExtResource( 1 )]
 margin_left = 1073.0
 margin_right = 1260.0
-margin_bottom = 300.0
+margin_bottom = 276.0
 
 [node name="CardSlot5" parent="VB/EnemyCards" instance=ExtResource( 1 )]
 margin_left = 1280.0
 margin_right = 1467.0
-margin_bottom = 300.0
+margin_bottom = 276.0
 
 [node name="PlayerCards" type="HBoxContainer" parent="VB"]
-margin_top = 390.0
+margin_top = 402.0
 margin_right = 1920.0
-margin_bottom = 690.0
-rect_min_size = Vector2( 0, 300 )
+margin_bottom = 678.0
 custom_constants/separation = 20
 alignment = 1
 
 [node name="CardSlot" parent="VB/PlayerCards" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_right = 639.0
-margin_bottom = 300.0
+margin_bottom = 276.0
+slot_type = 0
 
 [node name="CardSlot2" parent="VB/PlayerCards" instance=ExtResource( 1 )]
 margin_left = 659.0
 margin_right = 846.0
-margin_bottom = 300.0
+margin_bottom = 276.0
+slot_type = 0
 
 [node name="CardSlot3" parent="VB/PlayerCards" instance=ExtResource( 1 )]
 margin_left = 866.0
 margin_right = 1053.0
-margin_bottom = 300.0
+margin_bottom = 276.0
+slot_type = 0
 
 [node name="CardSlot4" parent="VB/PlayerCards" instance=ExtResource( 1 )]
 margin_left = 1073.0
 margin_right = 1260.0
-margin_bottom = 300.0
+margin_bottom = 276.0
+slot_type = 0
 
 [node name="CardSlot5" parent="VB/PlayerCards" instance=ExtResource( 1 )]
 margin_left = 1280.0
 margin_right = 1467.0
-margin_bottom = 300.0
+margin_bottom = 276.0
+slot_type = 0
 
 [node name="ShopCards" type="HBoxContainer" parent="VB"]
-margin_top = 760.0
+margin_top = 748.0
 margin_right = 1920.0
-margin_bottom = 1060.0
-rect_min_size = Vector2( 0, 300 )
+margin_bottom = 1024.0
 custom_constants/separation = 20
 alignment = 1
 
 [node name="CardSlot" parent="VB/ShopCards" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_right = 639.0
-margin_bottom = 300.0
+margin_bottom = 276.0
 
 [node name="CardSlot2" parent="VB/ShopCards" instance=ExtResource( 1 )]
 margin_left = 659.0
 margin_right = 846.0
-margin_bottom = 300.0
+margin_bottom = 276.0
 
 [node name="CardSlot3" parent="VB/ShopCards" instance=ExtResource( 1 )]
 margin_left = 866.0
 margin_right = 1053.0
-margin_bottom = 300.0
+margin_bottom = 276.0
 
 [node name="CardSlot4" parent="VB/ShopCards" instance=ExtResource( 1 )]
 margin_left = 1073.0
 margin_right = 1260.0
-margin_bottom = 300.0
+margin_bottom = 276.0
 
 [node name="CardSlot5" parent="VB/ShopCards" instance=ExtResource( 1 )]
 margin_left = 1280.0
 margin_right = 1467.0
-margin_bottom = 300.0
+margin_bottom = 276.0

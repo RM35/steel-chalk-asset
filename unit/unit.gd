@@ -40,8 +40,6 @@ func update_card():
 # Dragging fucntions	
 func get_drag_data(drag_offset):
 	var card_preview = self.duplicate(0b0001) # instace flag only
-	# This doesn't make sense (to me) but the rect must
-	# be set to something other than 0, 0
 	card_preview.set_process(false)
 	card_preview.rect_size = Vector2(1, 1) 
 	card_preview.modulate.a = 0.3

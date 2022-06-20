@@ -1,7 +1,16 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://card_slot/panel_style.tres" type="StyleBox" id=1]
+[ext_resource path="res://card_slot/card_slot.gd" type="Script" id=2]
 
 [node name="CardSlot" type="Panel"]
+margin_right = 187.0
+margin_bottom = 267.0
 rect_min_size = Vector2( 187, 276 )
 custom_styles/panel = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
