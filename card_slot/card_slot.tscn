@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://unit/textures/steel_card.png" type="Texture" id=1]
+[ext_resource path="res://unit/unit.gd" type="Script" id=2]
+[ext_resource path="res://unit/unit.tscn" type="PackedScene" id=3]
+
+[node name="CardSlot" type="Panel"]
+margin_left = 506.0
+margin_right = 693.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 187, 276 )
+
+[node name="Unit" type="TextureRect" parent="." instance=ExtResource( 3 )]
+texture = ExtResource( 1 )
+stretch_mode = 3
+script = ExtResource( 2 )

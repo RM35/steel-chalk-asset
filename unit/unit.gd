@@ -36,11 +36,13 @@ func update_card():
 			self_modulate = Color(1.0, 0.5, 1.0)
 		3: 
 			self_modulate = Color(1.0, 1.0, 0.5)
-			
+
+# Dragging fucntions	
 func get_drag_data(drag_offset):
-	var card_preview = self.duplicate()
-	# This doesn't make sense but the rect must
+	var card_preview = self.duplicate(0b0001) # instace flag only
+	# This doesn't make sense (to me) but the rect must
 	# be set to something other than 0, 0
+	card_preview.set_process(false)
 	card_preview.rect_size = Vector2(1, 1) 
 	card_preview.modulate.a = 0.3
 	var preview = Control.new()
@@ -98,7 +100,6 @@ func ability_output(value: int):
 			print("OUTPUT AOE DAMAGE")
 
 # Debug/Dev Functions
-
 func test_trig():
 	trig_on_attack()
 	trig_on_buy()
