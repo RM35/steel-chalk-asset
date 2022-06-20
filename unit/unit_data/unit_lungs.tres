@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://unit/unit_data/unit_stats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+unit_name = "LUNGS"
+health = 50
+attack = 2
+level = 1
+rarity = 1
+sprite_region_rect = Rect2( 32, 32, 32, 32 )
+ability_trigger = 1
+ability_output = 0
+ability_parameters = 45

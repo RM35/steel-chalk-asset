@@ -1,6 +1,6 @@
 extends TextureRect
 
-export(Resource) var unit_type
+export(Resource) var unit_type = load("res://unit/unit_data/unit_skull.tres")
 
 var unit_name: String = "Default"
 var health: int = 0
@@ -8,9 +8,10 @@ var attack: int = 0
 var level: int = 0
 var rarity: int = 0
 var sprite_region_rect: Rect2
+enum SLOT_TYPE{PLAYER, SHOP, ENEMY, NONE}
+export(SLOT_TYPE) var slot_type = SLOT_TYPE.NONE
 
 func _ready():
-	unit_type = load("res://unit/unit_data/unit_skull.tres")
 	unit_name = unit_type.unit_name
 	health = unit_type.health
 	attack = unit_type.attack
@@ -54,7 +55,8 @@ func drop_data(vec2, variant):
 	pass
 	
 func can_drop_data(vec2, variant):
-	pass
+	pass # Add card combinations and swapping here
+		
 
 # Ability triggers
 func trig_on_sell():
