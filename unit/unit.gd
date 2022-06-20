@@ -39,6 +39,7 @@ func update_card():
 
 # Dragging fucntions	
 func get_drag_data(drag_offset):
+	$AudioStreamPlayer.play()
 	var card_preview = self.duplicate(0b0001) # instace flag only
 	card_preview.set_process(false)
 	card_preview.rect_size = Vector2(1, 1) 

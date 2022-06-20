@@ -8,6 +8,7 @@ func get_drag_data(drag_offset):
 	
 func drop_data(vec2, variant):
 	#Decide if we are swapping cards. Upgrading a card or filling an empty card slot
+	$AudioStreamPlayer.play()
 	variant.get_parent().remove_child(variant)
 	$Control.add_child(variant)
 	
