@@ -5,5 +5,3 @@
 [node name="Main" type="Node2D"]
 
 [node name="World" parent="." instance=ExtResource( 1 )]
-margin_right = 0.0
-margin_bottom = 0.0
