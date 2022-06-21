@@ -52,20 +52,24 @@ func get_drag_data(drag_offset):
 	return self
 	
 func drop_data(vec2, variant):
-	#Swap the cards
-	$DropSFX.play()
-	var our_slot = self.get_parent()
-	var draggers_slot = variant.get_parent() 
-	our_slot.remove_child(self)
-	draggers_slot.remove_child(variant)
-	our_slot.add_child(variant)
-	draggers_slot.add_child(self)
+	#Try buying a card
+	if variant.slot_type == SLOT_TYPE.SHOP && slot_type == SLOT_TYPE.PLAYER:
+		pass
+	#Swap cards in player deck
+	if variant.slot_type == SLOT_TYPE.PLAYER && slot_type == SLOT_TYPE.PLAYER:
+		$DropSFX.play()
+		var our_slot = self.get_parent()
+		var draggers_slot = variant.get_parent() 
+		our_slot.remove_child(self)
+		draggers_slot.remove_child(variant)
+		our_slot.add_child(variant)
+		draggers_slot.add_child(self)
 	
 func can_drop_data(vec2, variant):
 	#Assuming we will only ever get cards as variants.
-	#Only deal with swapping for now.
+	#Only deal with swapping or buying.
 	#Check if card being dragged is from PLAYER and we
-	#Are a card ina  PLAYER slot ie PLAYER to PLAYER only.
+	#Are a card in a PLAYER slot ie PLAYER to PLAYER only.
 	return (variant.slot_type == SLOT_TYPE.SHOP || \
 	variant.slot_type == SLOT_TYPE.PLAYER) && \
 	self.slot_type == SLOT_TYPE.PLAYER
