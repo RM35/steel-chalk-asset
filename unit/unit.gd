@@ -6,6 +6,7 @@ var unit_name: String = "Default"
 var health: int = 0
 var attack: int = 0
 var level: int = 0
+var cost: int = 0
 var rarity: int = 0
 var sprite_region_rect: Rect2
 enum SLOT_TYPE{PLAYER, SHOP, ENEMY, NONE}
@@ -16,6 +17,8 @@ func _ready():
 	health = unit_type.health
 	attack = unit_type.attack
 	level = unit_type.level
+	if cost == 0:
+		cost = rarity + 1
 	rarity = unit_type.rarity
 	sprite_region_rect = unit_type.sprite_region_rect
 	update_card()
@@ -27,11 +30,8 @@ func update_card():
 	$MC/VB/MC2/C2/VB2/Health.text = str(health)
 	$MC/VB/MC2/C2/VB2/Attack.text = str(attack)
 	$MC/VB/MC2/C2/VB2/Level.text = str(level)
-	print(rarity)
 	match rarity:
 		1:
-			self_modulate = Color(1.0, 0.5, 0.0)
-		2: 
 			self_modulate = Color(0.5, 0.5, 1.0)
 		2: 
 			self_modulate = Color(1.0, 0.5, 1.0)
@@ -64,7 +64,7 @@ func drop_data(vec2, variant):
 		draggers_slot.remove_child(variant)
 		our_slot.add_child(variant)
 		draggers_slot.add_child(self)
-	
+
 func can_drop_data(vec2, variant):
 	#Assuming we will only ever get cards as variants.
 	#Only deal with swapping or buying.

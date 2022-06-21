@@ -6,6 +6,7 @@ export(String) var unit_name
 export(int) var health
 export(int) var attack
 export(int) var level
+export(int) var cost
 enum RARITY{COMMON, UNCOMMON, RARE, LEGENDARY}
 export(RARITY) var rarity
 export(Rect2) var sprite_region_rect
