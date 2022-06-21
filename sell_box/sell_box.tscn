@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://card_slot/panel_style.tres" type="StyleBox" id=1]
+[ext_resource path="res://sell_box/sell_box.gd" type="Script" id=2]
+[ext_resource path="res://unit/sounds/Wood Block1.mp3" type="AudioStream" id=3]
+
+[node name="SellBox" type="Panel"]
+margin_right = 187.0
+margin_bottom = 267.0
+rect_min_size = Vector2( 187, 276 )
+custom_styles/panel = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "SELL UNIT"
+align = 1
+valign = 1
+
+[node name="SellSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
