@@ -2,7 +2,6 @@ FROM ubuntu as builder
 
 ARG GODOT_VERSION
 ARG EXPORT_PROFILE
-ARG FILE_EXTENSION
 
 RUN apt update && \
     apt install -y \
@@ -13,6 +12,7 @@ RUN curl -Ls --fail "https://github.com/godotengine/godot/releases/download/${GO
 RUN unzip godot.zip Godot_*
 RUN mv Godot_* /usr/bin/godot
 
-ADD [".", "."]
+RUN mkdir -p /opt/src/project
+COPY . /opt/src/project
 
-RUN godot --path . --export "${EXPORT_PROFILE}" "game.${FILE_EXTENSION}"
+RUN godot --path /opt/src/project --export "${EXPORT_PROFILE}"
