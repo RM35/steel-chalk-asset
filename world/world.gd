@@ -1,7 +1,7 @@
 extends Control
 
-var player_gold = 0
-var game_level = 0
+var player_gold = 100
+var game_level = 1
 
 #Cards
 onready var unit_scene = preload("res://unit/unit.tscn")
@@ -35,6 +35,10 @@ func _ready():
 	for child in shop_deck.get_children():
 		if child.get_filename() == "res://card_slot/card_slot.tscn":
 			shop_slots.append(child)
+
+func _process(delta):
+	$Debug/Panel/VB/Level.text = "GAME LEVEL: " + str(game_level)
+	$Debug/Panel/VB/Gold.text = "GOLD: " + str(player_gold)
 
 func _on_Reroll_pressed():
 	$RerollSFX.play()

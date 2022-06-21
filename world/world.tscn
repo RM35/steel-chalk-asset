@@ -1,10 +1,18 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://card_slot/card_slot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/world.gd" type="Script" id=2]
 [ext_resource path="res://world/unit_probabilities.tres" type="Curve" id=3]
 [ext_resource path="res://card_slot/panel_style.tres" type="StyleBox" id=4]
 [ext_resource path="res://unit/sounds/African1.mp3" type="AudioStream" id=5]
+[ext_resource path="res://sell_box/sell_box.tscn" type="PackedScene" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.380392, 0.0431373, 0.0431373, 1 )
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
 
 [node name="World" type="Control"]
 anchor_right = 1.0
@@ -58,33 +66,38 @@ margin_bottom = 678.0
 custom_constants/separation = 20
 alignment = 1
 
+[node name="SellBox" parent="VB/PlayerCards" instance=ExtResource( 6 )]
+margin_left = 349.0
+margin_right = 536.0
+margin_bottom = 276.0
+
 [node name="CardSlot" parent="VB/PlayerCards" instance=ExtResource( 1 )]
-margin_left = 452.0
-margin_right = 639.0
+margin_left = 556.0
+margin_right = 743.0
 margin_bottom = 276.0
 slot_type = 0
 
 [node name="CardSlot2" parent="VB/PlayerCards" instance=ExtResource( 1 )]
-margin_left = 659.0
-margin_right = 846.0
+margin_left = 763.0
+margin_right = 950.0
 margin_bottom = 276.0
 slot_type = 0
 
 [node name="CardSlot3" parent="VB/PlayerCards" instance=ExtResource( 1 )]
-margin_left = 866.0
-margin_right = 1053.0
+margin_left = 970.0
+margin_right = 1157.0
 margin_bottom = 276.0
 slot_type = 0
 
 [node name="CardSlot4" parent="VB/PlayerCards" instance=ExtResource( 1 )]
-margin_left = 1073.0
-margin_right = 1260.0
+margin_left = 1177.0
+margin_right = 1364.0
 margin_bottom = 276.0
 slot_type = 0
 
 [node name="CardSlot5" parent="VB/PlayerCards" instance=ExtResource( 1 )]
-margin_left = 1280.0
-margin_right = 1467.0
+margin_left = 1384.0
+margin_right = 1571.0
 margin_bottom = 276.0
 slot_type = 0
 
@@ -153,6 +166,43 @@ margin_bottom = 276.0
 
 [node name="RerollSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
+
+[node name="Debug" type="Control" parent="."]
+margin_left = 103.0
+margin_top = 396.0
+margin_right = 261.0
+margin_bottom = 684.0
+
+[node name="Panel" type="Panel" parent="Debug"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+
+[node name="VB" type="VBoxContainer" parent="Debug/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Gold" type="Label" parent="Debug/Panel/VB"]
+margin_top = 64.0
+margin_right = 158.0
+margin_bottom = 78.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "GOLD:"
+align = 1
+valign = 1
+
+[node name="Level" type="Label" parent="Debug/Panel/VB"]
+margin_top = 210.0
+margin_right = 158.0
+margin_bottom = 224.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "LEVEL:"
+align = 1
+valign = 1
 
 [connection signal="pressed" from="VB/ShopCards/VB/Reroll" to="." method="_on_Reroll_pressed"]
 [connection signal="pressed" from="VB/ShopCards/VB/ClearTeam" to="." method="_on_Blank_pressed"]
