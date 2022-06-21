@@ -55,8 +55,13 @@ func drop_data(vec2, variant):
 	pass
 	
 func can_drop_data(vec2, variant):
-	pass # Add card combinations and swapping here
-		
+	#Assuming we will only ever get cards as variants.
+	#Only deal with swapping for now.
+	#Check if card being dragged is from PLAYER and we
+	#Are a card ina  PLAYER slot ie PLAYER to PLAYER only.
+	return (variant.slot_type == SLOT_TYPE.SHOP || \
+	variant.slot_type == SLOT_TYPE.PLAYER) && \
+	self.slot_type == SLOT_TYPE.PLAYER
 
 # Ability triggers
 func trig_on_sell():
