@@ -13,6 +13,7 @@ func drop_data(vec2, variant):
 	$AudioStreamPlayer.play()
 	variant.get_parent().remove_child(variant)
 	$Control.add_child(variant)
+	#Apply this slots type to the card
 	variant.slot_type = slot_type
 	
 func can_drop_data(vec2, variant):
