@@ -40,7 +40,7 @@ func update_card():
 
 # Dragging fucntions	
 func get_drag_data(drag_offset):
-	$AudioStreamPlayer.play()
+	$DragSFX.play()
 	var card_preview = self.duplicate(0b0001) # instace flag only
 	card_preview.set_process(false)
 	card_preview.rect_size = Vector2(1, 1) 
@@ -52,7 +52,14 @@ func get_drag_data(drag_offset):
 	return self
 	
 func drop_data(vec2, variant):
-	pass
+	#Swap the cards
+	$DropSFX.play()
+	var our_slot = self.get_parent()
+	var draggers_slot = variant.get_parent() 
+	our_slot.remove_child(self)
+	draggers_slot.remove_child(variant)
+	our_slot.add_child(variant)
+	draggers_slot.add_child(self)
 	
 func can_drop_data(vec2, variant):
 	#Assuming we will only ever get cards as variants.

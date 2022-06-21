@@ -9,8 +9,8 @@ func get_drag_data(drag_offset):
 func drop_data(vec2, variant):
 	#If empty allow drop. Cards should stop mouse from passing so
 	#we shouldn't need to check for cards exisiting. Cards themselves
-	#will deal with levelling up and swapping
-	$AudioStreamPlayer.play()
+	#will deal with levelling up and swapping and SFX
+	variant.get_node("DropSFX").play()
 	variant.get_parent().remove_child(variant)
 	$Control.add_child(variant)
 	#Apply this slots type to the card
