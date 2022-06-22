@@ -34,6 +34,12 @@ func _ready():
 	update_card()
 	test_trig()
 
+func _process(_delta):
+	if !alive:
+		self.modulate.a = 0.1
+	else:
+		self.modulate.a = 1
+		
 func update_card():
 	$MC/VB/C/C/Sprite.region_rect = sprite_region_rect
 	$MC/VB/MC2/C2/VB2/Name.text = unit_name
@@ -129,6 +135,17 @@ func ability_output(value: int):
 		5:
 			print("OUTPUT AOE DAMAGE")
 
+func play_attack_tween():
+	$DropSFX.play()
+	if !$Tween.is_active():
+		var rect_pos_origin = rect_position
+		$Tween.interpolate_property(self, "rect_position", self.rect_position, Vector2(0, -20), world.move_delay / 2 , Tween.TRANS_LINEAR)
+		$Tween.start()
+		yield($Tween, "tween_completed")
+		$Tween.interpolate_property(self, "rect_position", self.rect_position, rect_pos_origin, world.move_delay / 2, Tween.TRANS_LINEAR)
+		$Tween.start()
+
+	
 # Debug/Dev Functions
 func test_trig():
 	trig_on_attack()

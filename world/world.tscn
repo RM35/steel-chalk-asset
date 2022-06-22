@@ -265,3 +265,4 @@ wait_time = 0.5
 [connection signal="pressed" from="VB/ShopCards/VB/ClearTeam" to="." method="_on_ClearTeam_pressed"]
 [connection signal="pressed" from="Debug/Panel/MarginContainer/VB/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Debug/Panel/MarginContainer/VB/Battle" to="." method="_on_Battle_pressed"]
+[connection signal="timeout" from="MoveDelay" to="." method="_on_MoveDelay_timeout"]

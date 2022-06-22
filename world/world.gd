@@ -5,6 +5,7 @@ var player_gold = 100
 var game_level = 1
 enum GAME_STATE{IDLE, BATTLE}
 var game_state = GAME_STATE.IDLE
+var move_delay = 0.5
 
 #Cards
 onready var unit_scene = preload("res://unit/unit.tscn")
@@ -72,10 +73,14 @@ func _on_Button_pressed():
 	game_state = game_state % 2
 
 func _on_Battle_pressed():
-	game_level = 1
-	game_state = 1
 	reroll_enemies()
-	$MoveDelay.wait_time = float($Debug/Panel/MarginContainer/VB/LineEdit.text)
+	if get_next_alive_enemy() && get_next_alive_player():
+		#Start the battle
+		game_level = 1
+		game_state = 1
+		move_delay = float($Debug/Panel/MarginContainer/VB/LineEdit.text)
+		$MoveDelay.wait_time = move_delay
+		$MoveDelay.start()
 
 func reroll_enemies():
 	$RerollSFX.play()
@@ -90,14 +95,44 @@ func reroll_enemies():
 		unit.slot_type = 2
 		node.get_node("Control").add_child(unit)
 
-func get_team_unit_count():
-	var enemy_count = 0
-	var player_count = 0
-	for node in enemy_slots:
-		if node.get_node("Control").get_child_count() != 0:
-			if node.get_node("Control").get_node("Unit").battle_health > 0:
-				enemy_count += 1
+func get_next_alive_player():
 	for node in player_slots:
 		if node.get_node("Control").get_child_count() != 0:
-			if node.get_node("Control").get_node("Unit").battle_health > 0:
-				enemy_count += 1
+			if node.get_node("Control").get_child(0).battle_health > 0:
+				return node.get_node("Control").get_child(0)
+	return false
+
+func get_next_alive_enemy():
+	for node in enemy_slots:
+		if node.get_node("Control").get_child_count() != 0:
+			if node.get_node("Control").get_child(0).battle_health > 0:
+				return node.get_node("Control").get_child(0)
+	return false
+
+func end_battle():
+	#Clear enemy deck
+	for node in enemy_slots:
+		if node.get_node("Control").get_child_count() != 0:
+			node.get_node("Control").get_child(0).queue_free()
+	#Set game_state to idle
+	game_state = 0
+	#Set all player deck to alive + full battle_health
+	for node in player_slots:
+		if node.get_node("Control").get_child_count() != 0:
+			var unit = node.get_node("Control").get_child(0)
+			unit.battle_health = unit.health
+			unit.alive = true
+	
+#Main battle logic
+func _on_MoveDelay_timeout():
+	var enemy = get_next_alive_enemy()
+	var player = get_next_alive_player()
+	if !(enemy && player):
+		end_battle()
+		return
+	enemy.battle_health -= player.attack
+	player.battle_health -= enemy.attack
+	enemy.play_attack_tween()
+	player.play_attack_tween()
+	if player.battle_health <= 0: player.alive = false
+	if enemy.battle_health <= 0: enemy.alive = false
