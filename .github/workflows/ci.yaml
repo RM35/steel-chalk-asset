@@ -35,7 +35,6 @@ jobs:
       - name: Export Project
         run: |
           godot --path ${{ github.workspace }} --export '${{ matrix.profile }}'
-          godot --path ${{ github.workspace }} --export-pack '${{ matrix.profile }}'
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
