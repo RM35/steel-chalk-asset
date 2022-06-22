@@ -75,7 +75,7 @@ func _on_Battle_pressed():
 	game_level = 1
 	game_state = 1
 	reroll_enemies()
-	$MoveDelay.start()
+	$MoveDelay.wait_time = 
 
 func reroll_enemies():
 	$RerollSFX.play()
