@@ -12,6 +12,10 @@ var sprite_region_rect: Rect2
 enum SLOT_TYPE{PLAYER, SHOP, ENEMY, NONE}
 export(SLOT_TYPE) var slot_type = SLOT_TYPE.NONE
 
+#Battle
+var battle_health = 0
+var alive = true
+
 #/root/main/world should always exist but a better 
 #way of connecting to the global player gold might
 #be better
@@ -26,6 +30,7 @@ func _ready():
 		cost = rarity + 1
 	rarity = unit_type.rarity
 	sprite_region_rect = unit_type.sprite_region_rect
+	battle_health = health
 	update_card()
 	test_trig()
 

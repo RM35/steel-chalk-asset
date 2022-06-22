@@ -41,9 +41,9 @@ func _ready():
 			shop_slots.append(child)
 
 func _process(delta):
-	$Debug/Panel/VB/Level.text = "GAME LEVEL: " + str(game_level)
-	$Debug/Panel/VB/Gold.text = "GOLD: " + str(player_gold)
-	$Debug/Panel/VB/State.text = "STATE: " + str(game_state)
+	$Debug/Panel/MarginContainer/VB/Level.text = "GAME LEVEL: " + str(game_level)
+	$Debug/Panel/MarginContainer/VB/Gold.text = "GOLD: " + str(player_gold)
+	$Debug/Panel/MarginContainer/VB/State.text = "STATE: " + str(game_state)
 
 
 #Debug
@@ -75,7 +75,7 @@ func _on_Battle_pressed():
 	game_level = 1
 	game_state = 1
 	reroll_enemies()
-	$MoveDelay.wait_time = 
+	$MoveDelay.wait_time = float($Debug/Panel/MarginContainer/VB/LineEdit.text)
 
 func reroll_enemies():
 	$RerollSFX.play()
@@ -89,3 +89,15 @@ func reroll_enemies():
 		#Set to shop slot
 		unit.slot_type = 2
 		node.get_node("Control").add_child(unit)
+
+func get_team_unit_count():
+	var enemy_count = 0
+	var player_count = 0
+	for node in enemy_slots:
+		if node.get_node("Control").get_child_count() != 0:
+			if node.get_node("Control").get_node("Unit").battle_health > 0:
+				enemy_count += 1
+	for node in player_slots:
+		if node.get_node("Control").get_child_count() != 0:
+			if node.get_node("Control").get_node("Unit").battle_health > 0:
+				enemy_count += 1
