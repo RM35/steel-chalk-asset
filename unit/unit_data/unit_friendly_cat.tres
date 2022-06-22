@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://unit/unit_data/unit_stats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+unit_name = "FRIENDLY_CAT"
+health = 100
+attack = 50
+level = 1
+cost = 99
+rarity = 3
+sprite_region_rect = Rect2( 128, 0, 32, 32 )
+ability_trigger = 1
+ability_output = 0
+ability_parameters = 45
