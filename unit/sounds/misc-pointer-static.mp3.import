@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/misc-pointer-static.mp3-86fc2048840043995b017f944eda5b06.mp3str"
+
+[deps]
+
+source_file="res://unit/sounds/misc-pointer-static.mp3"
+dest_files=[ "res://.import/misc-pointer-static.mp3-86fc2048840043995b017f944eda5b06.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

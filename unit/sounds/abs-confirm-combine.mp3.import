@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/abs-confirm-combine.mp3-4ed08ea68a68726c243310b32113188e.mp3str"
+
+[deps]
+
+source_file="res://unit/sounds/abs-confirm-combine.mp3"
+dest_files=[ "res://.import/abs-confirm-combine.mp3-4ed08ea68a68726c243310b32113188e.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
