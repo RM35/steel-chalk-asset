@@ -188,9 +188,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Gold" type="Label" parent="Debug/Panel/VB"]
-margin_top = 45.0
+margin_top = 12.0
 margin_right = 229.0
-margin_bottom = 59.0
+margin_bottom = 26.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 text = "GOLD:"
@@ -198,14 +198,56 @@ align = 1
 valign = 1
 
 [node name="Level" type="Label" parent="Debug/Panel/VB"]
-margin_top = 153.0
+margin_top = 55.0
 margin_right = 229.0
-margin_bottom = 167.0
+margin_bottom = 69.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 text = "LEVEL:"
 align = 1
 valign = 1
 
+[node name="State" type="Label" parent="Debug/Panel/VB"]
+margin_top = 98.0
+margin_right = 229.0
+margin_bottom = 112.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "STATE:"
+align = 1
+valign = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Debug/Panel/VB"]
+margin_top = 129.0
+margin_right = 229.0
+margin_bottom = 169.0
+custom_constants/margin_right = 50
+custom_constants/margin_top = 0
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 20
+
+[node name="Button" type="Button" parent="Debug/Panel/VB/MarginContainer"]
+margin_left = 50.0
+margin_right = 179.0
+margin_bottom = 20.0
+text = "Change State"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Debug/Panel/VB"]
+margin_top = 173.0
+margin_right = 229.0
+margin_bottom = 213.0
+custom_constants/margin_right = 50
+custom_constants/margin_top = 0
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 20
+
+[node name="Battle" type="Button" parent="Debug/Panel/VB/MarginContainer2"]
+margin_left = 50.0
+margin_right = 179.0
+margin_bottom = 20.0
+text = "Start Battle"
+
 [connection signal="pressed" from="VB/ShopCards/VB/Reroll" to="." method="_on_Reroll_pressed"]
 [connection signal="pressed" from="VB/ShopCards/VB/ClearTeam" to="." method="_on_ClearTeam_pressed"]
+[connection signal="pressed" from="Debug/Panel/VB/MarginContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Debug/Panel/VB/MarginContainer2/Battle" to="." method="_on_Battle_pressed"]

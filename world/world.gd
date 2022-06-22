@@ -1,7 +1,10 @@
 extends Control
 
+#'Global' vars. Maybe move to an autoloaded singleton
 var player_gold = 100
 var game_level = 1
+enum GAME_STATE{IDLE, BATTLE}
+var game_state = GAME_STATE.IDLE
 
 #Cards
 onready var unit_scene = preload("res://unit/unit.tscn")
@@ -39,7 +42,10 @@ func _ready():
 func _process(delta):
 	$Debug/Panel/VB/Level.text = "GAME LEVEL: " + str(game_level)
 	$Debug/Panel/VB/Gold.text = "GOLD: " + str(player_gold)
+	$Debug/Panel/VB/State.text = "STATE: " + str(game_state)
 
+
+#Debug
 func _on_Reroll_pressed():
 	$RerollSFX.play()
 	for node in shop_slots:
@@ -57,3 +63,10 @@ func _on_ClearTeam_pressed():
 	for node in player_slots:
 		if node.get_node("Control").get_child_count() != 0:
 			node.get_node("Control").get_child(0).queue_free()
+
+func _on_Button_pressed():
+	game_state += 1
+	game_state = game_state % 2
+
+func _on_Battle_pressed():
+	pass # Replace with function body.

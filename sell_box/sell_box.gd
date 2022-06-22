@@ -22,5 +22,8 @@ func drop_data(vec2, variant):
 	variant.queue_free()
 	
 func can_drop_data(vec2, variant):
+	#if game_state not idle then block dragging
+	if world.game_state:
+		return false
 	#Allow selling only from player deck
 	return variant.slot_type == 0 && (variant.cost <= world.player_gold)

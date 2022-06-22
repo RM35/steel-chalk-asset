@@ -33,5 +33,8 @@ func drop_data(vec2, variant):
 		variant.slot_type = slot_type
 	
 func can_drop_data(vec2, variant):
+	#if game_state not idle then block dragging
+	if world.game_state:
+		return false
 	#If we are dropping to a player slot allow the drop
 	return !slot_type

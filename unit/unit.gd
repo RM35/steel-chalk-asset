@@ -12,6 +12,11 @@ var sprite_region_rect: Rect2
 enum SLOT_TYPE{PLAYER, SHOP, ENEMY, NONE}
 export(SLOT_TYPE) var slot_type = SLOT_TYPE.NONE
 
+#/root/main/world should always exist but a better 
+#way of connecting to the global player gold might
+#be better
+onready var world = get_node("/root/Main/World")
+
 func _ready():
 	unit_name = unit_type.unit_name
 	health = unit_type.health
@@ -40,6 +45,9 @@ func update_card():
 
 # Dragging fucntions	
 func get_drag_data(drag_offset):
+	#if game_state not idle then dont no need for drag preview
+	if world.game_state:
+		return false
 	$DragSFX.play()
 	var card_preview = self.duplicate(0b0001) # instace flag only
 	card_preview.set_process(false)
@@ -66,6 +74,9 @@ func drop_data(vec2, variant):
 		draggers_slot.add_child(self)
 
 func can_drop_data(vec2, variant):
+	#if game_state not idle then block dragging
+	if world.game_state:
+		return false
 	#Assuming we will only ever get cards as variants.
 	return (variant.slot_type == SLOT_TYPE.SHOP || \
 	variant.slot_type == SLOT_TYPE.PLAYER) && \
