@@ -122,7 +122,7 @@ func end_battle():
 			var unit = node.get_node("Control").get_child(0)
 			unit.battle_health = unit.health
 			unit.alive = true
-	
+
 #Main battle logic
 func _on_MoveDelay_timeout():
 	var enemy = get_next_alive_enemy()

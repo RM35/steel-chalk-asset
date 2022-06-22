@@ -39,13 +39,13 @@ func _process(_delta):
 		self.modulate.a = 0.1
 	else:
 		self.modulate.a = 1
+	update_card()
 		
 func update_card():
 	$MC/VB/C/C/Sprite.region_rect = sprite_region_rect
 	$MC/VB/MC2/C2/VB2/Name.text = unit_name
-	$MC/VB/MC2/C2/VB2/Health.text = str(health)
-	$MC/VB/MC2/C2/VB2/Attack.text = str(attack)
-	$MC/VB/MC2/C2/VB2/Level.text = str(level)
+	$MC/VB/MC2/C2/VB2/HBoxContainer/Panel/Health.text = str(battle_health)
+	$MC/VB/MC2/C2/VB2/HBoxContainer/Panel2/Attack.text = str(attack)
 	match rarity:
 		1:
 			self_modulate = Color(0.5, 0.5, 1.0)
