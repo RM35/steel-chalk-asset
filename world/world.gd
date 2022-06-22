@@ -10,7 +10,8 @@ var game_state = GAME_STATE.IDLE
 onready var unit_scene = preload("res://unit/unit.tscn")
 var card_types: Array = ["res://unit/unit_data/unit_lungs.tres",
 						"res://unit/unit_data/unit_shield.tres",
-						"res://unit/unit_data/unit_skull.tres"]
+						"res://unit/unit_data/unit_skull.tres",
+						"res://unit/unit_data/unit_chicken.tres"]
 
 #Decks
 onready var enemy_deck = $VB/EnemyCards
