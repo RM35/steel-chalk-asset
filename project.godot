@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="steel-chalk-asset"
-run/main_scene="res://main.tscn"
+run/main_scene="res://main_menu/main_menu.tscn"
 
 [display]
 
