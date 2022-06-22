@@ -49,16 +49,18 @@ func _process(delta):
 #Debug
 func _on_Reroll_pressed():
 	$RerollSFX.play()
-	for node in shop_slots:
-		if node.get_node("Control").get_child_count() != 0:
-			node.get_node("Control").get_child(0).queue_free()
-		#Equally random for now
-		var unit = unit_scene.instance()
-		rng.randomize()
-		unit.unit_type = load(card_types[rng.randi_range(0, len(card_types) - 1)])
-		#Set to shop slot
-		unit.slot_type = 1
-		node.get_node("Control").add_child(unit)
+	if player_gold >= 2:
+		player_gold -= 2
+		for node in shop_slots:
+			if node.get_node("Control").get_child_count() != 0:
+				node.get_node("Control").get_child(0).queue_free()
+			#Equally random for now
+			var unit = unit_scene.instance()
+			rng.randomize()
+			unit.unit_type = load(card_types[rng.randi_range(0, len(card_types) - 1)])
+			#Set to shop slot
+			unit.slot_type = 1
+			node.get_node("Control").add_child(unit)
 
 func _on_ClearTeam_pressed():
 	for node in player_slots:
@@ -70,4 +72,20 @@ func _on_Button_pressed():
 	game_state = game_state % 2
 
 func _on_Battle_pressed():
-	pass # Replace with function body.
+	game_level = 1
+	game_state = 1
+	reroll_enemies()
+	$MoveDelay.start()
+
+func reroll_enemies():
+	$RerollSFX.play()
+	for node in enemy_slots:
+		if node.get_node("Control").get_child_count() != 0:
+			node.get_node("Control").get_child(0).queue_free()
+		#Equally random for now
+		var unit = unit_scene.instance()
+		rng.randomize()
+		unit.unit_type = load(card_types[rng.randi_range(0, len(card_types) - 1)])
+		#Set to shop slot
+		unit.slot_type = 2
+		node.get_node("Control").add_child(unit)

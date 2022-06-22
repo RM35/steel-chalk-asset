@@ -247,6 +247,11 @@ margin_right = 179.0
 margin_bottom = 20.0
 text = "Start Battle"
 
+[node name="RoundTimer" type="Timer" parent="."]
+
+[node name="MoveDelay" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="pressed" from="VB/ShopCards/VB/Reroll" to="." method="_on_Reroll_pressed"]
 [connection signal="pressed" from="VB/ShopCards/VB/ClearTeam" to="." method="_on_ClearTeam_pressed"]
 [connection signal="pressed" from="Debug/Panel/VB/MarginContainer/Button" to="." method="_on_Button_pressed"]
