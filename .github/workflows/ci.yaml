@@ -63,7 +63,7 @@ jobs:
           useConfigFile: true
           configFilePath: GitVersion.yml
       - name: Label PR Semantic Minor
-        if: github.event_name == 'pull_request' && ${{ steps.git-version.outputs.minor > 0 && steps.git-version.outputs.patch == 0 }}
+        if: ${{ github.event_name == 'pull_request' && steps.git-version.outputs.minor > 0 && steps.git-version.outputs.patch == 0 }}
         uses: actions/github-script@v6
         with:
           script: |
@@ -74,7 +74,7 @@ jobs:
               labels: ['Semver-Minor']
             })
       - name: Label PR Semantic Major
-        if: github.event_name == 'pull_request' && ${{ steps.git-version.outputs.major > 0 && steps.git-version.outputs.minor == 0 && steps.git-version.outputs.patch == 0 }}
+        if: ${{ github.event_name == 'pull_request' && steps.git-version.outputs.major > 0 && steps.git-version.outputs.minor == 0 && steps.git-version.outputs.patch == 0 }}
         uses: actions/github-script@v6
         with:
           script: |
@@ -82,7 +82,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              labels: ['Semver-Minor']
+              labels: ['Semver-Major']
             })
   release:
     if: github.ref == 'refs/heads/main'
