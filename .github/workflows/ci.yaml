@@ -41,3 +41,30 @@ jobs:
         with:
           name: "steel-chalk-asset-${{ matrix.flavour}}"
           path: ${{ matrix.executable_name }}
+  release:
+    if: github.ref == 'refs/heads/master'
+    needs:
+      - build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.11
+        with:
+          versionSpec: '5.x'
+      - name: Determine Version
+        id: git-version
+        uses: gittools/actions/gitversion/execute@v0.9.7
+        with:
+          useConfigFile: true
+          configFilePath: GitVersion.yml
+      - name: Create Release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # ${{ secrets.githubToken }} maybe need custom PAT
+        with:
+          tag_name: ${{ steps.git-version.outputs.semVer }}
+          release_name: Release ${{ steps.git-version.outputs.semVer }}
