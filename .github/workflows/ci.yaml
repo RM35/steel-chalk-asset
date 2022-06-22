@@ -41,11 +41,12 @@ jobs:
         with:
           name: "steel-chalk-asset-${{ matrix.flavour}}"
           path: ${{ matrix.executable_name }}
-  release:
-    if: github.ref == 'refs/heads/main'
+  calculate-version:
     needs:
       - build-and-test
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.git-version.outputs.semVer }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -61,6 +62,35 @@ jobs:
         with:
           useConfigFile: true
           configFilePath: GitVersion.yml
+      - name: Label PR Semantic Minor
+        if: github.event_name == 'pull_request' && ${{ steps.git-version.outputs.minor > 0 && steps.git-version.outputs.patch == 0 }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['Semver-Minor']
+            })
+      - name: Label PR Semantic Major
+        if: github.event_name == 'pull_request' && ${{ steps.git-version.outputs.major > 0 && steps.git-version.outputs.minor == 0 && steps.git-version.outputs.patch == 0 }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['Semver-Minor']
+            })
+  release:
+    if: github.ref == 'refs/heads/main'
+    needs:
+      - build-and-test
+      - calculate-version
+    runs-on: ubuntu-latest
+    steps:
       - name: Download build artifacts
         id: download
         uses: actions/download-artifact@v3
@@ -69,8 +99,8 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.git-version.outputs.semVer }}
-          name: Release ${{ steps.git-version.outputs.semVer }}
+          tag_name: ${{ needs.calculate-version.outputs.version }}
+          name: Release ${{ needs.calculate-version.outputs.version }}
           generate_release_notes: true
           files: |
             ${{steps.download.outputs.download-path}}/**
