@@ -42,7 +42,7 @@ jobs:
           name: "steel-chalk-asset-${{ matrix.flavour}}"
           path: ${{ matrix.executable_name }}
   release:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     needs:
       - build-and-test
     runs-on: ubuntu-latest
@@ -61,10 +61,15 @@ jobs:
         with:
           useConfigFile: true
           configFilePath: GitVersion.yml
-      - name: Create Release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # ${{ secrets.githubToken }} maybe need custom PAT
+      - name: Download build artifacts
+        id: download
+        uses: actions/download-artifact@v3
+        with:
+          path: /etc/usr/artifacts
+      - name: Release
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.git-version.outputs.semVer }}
-          release_name: Release ${{ steps.git-version.outputs.semVer }}
+          name: Release ${{ steps.git-version.outputs.semVer }}
+          files: |
+            ${{steps.download.outputs.download-path}}/**
