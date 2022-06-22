@@ -21,7 +21,6 @@ jobs:
         include:
           - profile: "Windows Desktop"
             flavour: windows
-            executable_name: steel_chalk_asset.exe
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -35,12 +34,13 @@ jobs:
           godot-version: ${{ env.GODOT_VERSION }}
       - name: Export Project
         run: |
-          godot --export '${{ matrix.profile }}' '${{ matrix.executable_name }}'
+          godot --path ${{ github.workspace }} --export '${{ matrix.profile }}'
+          godot --path ${{ github.workspace }} --export-pack '${{ matrix.profile }}'
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: "steel-chalk-asset-${{ matrix.flavour}}"
-          path: ${{ matrix.executable_name }}
+          path: steel_chalk_asset*
   calculate-version:
     needs:
       - build-and-test
