@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://card_slot/card_slot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/world.gd" type="Script" id=2]
@@ -6,6 +6,10 @@
 [ext_resource path="res://card_slot/panel_style.tres" type="StyleBox" id=4]
 [ext_resource path="res://unit/sounds/African1.mp3" type="AudioStream" id=5]
 [ext_resource path="res://sell_box/sell_box.tscn" type="PackedScene" id=6]
+[ext_resource path="res://unit/textures/Poppins-Black.ttf" type="DynamicFontData" id=7]
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 7 )
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.380392, 0.0431373, 0.0431373, 1 )
@@ -13,6 +17,15 @@ border_width_left = 10
 border_width_top = 10
 border_width_right = 10
 border_width_bottom = 10
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=5]
+font_data = ExtResource( 7 )
 
 [node name="World" type="Control"]
 anchor_right = 1.0
@@ -109,16 +122,17 @@ custom_constants/separation = 20
 alignment = 1
 
 [node name="VB" type="VBoxContainer" parent="VB/ShopCards"]
-margin_left = 377.0
-margin_right = 508.0
+margin_left = 354.0
+margin_right = 531.0
 margin_bottom = 276.0
 custom_constants/separation = 50
 
 [node name="Reroll" type="Button" parent="VB/ShopCards/VB"]
-margin_right = 131.0
+margin_right = 177.0
 margin_bottom = 113.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_fonts/font = SubResource( 2 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
@@ -128,10 +142,11 @@ text = "Reroll"
 
 [node name="ClearTeam" type="Button" parent="VB/ShopCards/VB"]
 margin_top = 163.0
-margin_right = 131.0
+margin_right = 177.0
 margin_bottom = 276.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_fonts/font = SubResource( 2 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
@@ -140,28 +155,28 @@ custom_styles/normal = ExtResource( 4 )
 text = "Clear Player Deck"
 
 [node name="CardSlot" parent="VB/ShopCards" instance=ExtResource( 1 )]
-margin_left = 528.0
-margin_right = 715.0
+margin_left = 551.0
+margin_right = 738.0
 margin_bottom = 276.0
 
 [node name="CardSlot2" parent="VB/ShopCards" instance=ExtResource( 1 )]
-margin_left = 735.0
-margin_right = 922.0
+margin_left = 758.0
+margin_right = 945.0
 margin_bottom = 276.0
 
 [node name="CardSlot3" parent="VB/ShopCards" instance=ExtResource( 1 )]
-margin_left = 942.0
-margin_right = 1129.0
+margin_left = 965.0
+margin_right = 1152.0
 margin_bottom = 276.0
 
 [node name="CardSlot4" parent="VB/ShopCards" instance=ExtResource( 1 )]
-margin_left = 1149.0
-margin_right = 1336.0
+margin_left = 1172.0
+margin_right = 1359.0
 margin_bottom = 276.0
 
 [node name="CardSlot5" parent="VB/ShopCards" instance=ExtResource( 1 )]
-margin_left = 1356.0
-margin_right = 1543.0
+margin_left = 1379.0
+margin_right = 1566.0
 margin_bottom = 276.0
 
 [node name="RerollSFX" type="AudioStreamPlayer" parent="."]
@@ -197,63 +212,70 @@ __meta__ = {
 [node name="VB" type="VBoxContainer" parent="Debug/Panel/MarginContainer"]
 margin_left = 20.0
 margin_top = 30.0
-margin_right = 209.0
-margin_bottom = 228.0
+margin_right = 212.0
+margin_bottom = 237.0
 
 [node name="Label" type="Label" parent="Debug/Panel/MarginContainer/VB"]
-margin_right = 189.0
-margin_bottom = 14.0
+margin_right = 192.0
+margin_bottom = 23.0
+custom_fonts/font = SubResource( 3 )
 text = "Delay Between Moves"
 align = 1
 valign = 1
 
 [node name="LineEdit" type="LineEdit" parent="Debug/Panel/MarginContainer/VB"]
-margin_top = 18.0
-margin_right = 189.0
-margin_bottom = 42.0
+margin_top = 27.0
+margin_right = 192.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 4 )
 text = "0.5"
 align = 1
 
 [node name="Gold" type="Label" parent="Debug/Panel/MarginContainer/VB"]
-margin_top = 55.0
-margin_right = 189.0
-margin_bottom = 69.0
+margin_top = 64.0
+margin_right = 192.0
+margin_bottom = 87.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
+custom_fonts/font = SubResource( 3 )
 text = "GOLD:"
 align = 1
 valign = 1
 
 [node name="Level" type="Label" parent="Debug/Panel/MarginContainer/VB"]
 margin_top = 91.0
-margin_right = 189.0
-margin_bottom = 105.0
+margin_right = 192.0
+margin_bottom = 114.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
+custom_fonts/font = SubResource( 3 )
 text = "LEVEL:"
 align = 1
 valign = 1
 
 [node name="State" type="Label" parent="Debug/Panel/MarginContainer/VB"]
-margin_top = 127.0
-margin_right = 189.0
+margin_top = 118.0
+margin_right = 192.0
 margin_bottom = 141.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
+custom_fonts/font = SubResource( 3 )
 text = "STATE:"
 align = 1
 valign = 1
 
 [node name="Button" type="Button" parent="Debug/Panel/MarginContainer/VB"]
-margin_top = 154.0
-margin_right = 189.0
+margin_top = 145.0
+margin_right = 192.0
 margin_bottom = 174.0
+custom_fonts/font = SubResource( 5 )
 text = "Change State"
 
 [node name="Battle" type="Button" parent="Debug/Panel/MarginContainer/VB"]
 margin_top = 178.0
-margin_right = 189.0
-margin_bottom = 198.0
+margin_right = 192.0
+margin_bottom = 207.0
+custom_fonts/font = SubResource( 5 )
 text = "Start Battle"
 
 [node name="RoundTimer" type="Timer" parent="."]

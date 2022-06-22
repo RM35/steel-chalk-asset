@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://card_slot/panel_style.tres" type="StyleBox" id=1]
 [ext_resource path="res://sell_box/sell_box.gd" type="Script" id=2]
 [ext_resource path="res://unit/sounds/Wood Block1.mp3" type="AudioStream" id=3]
+[ext_resource path="res://unit/textures/Poppins-Black.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+font_data = ExtResource( 4 )
 
 [node name="SellBox" type="Panel"]
 margin_right = 187.0
@@ -19,9 +24,11 @@ mouse_filter = 1
 [node name="Label" type="Label" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_fonts/font = SubResource( 1 )
 text = "SELL UNIT"
 align = 1
 valign = 1
+autowrap = true
 
 [node name="SellSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
