@@ -1,4 +1,4 @@
-name: Docker Build & Push
+name: CI
 
 on:
   push:
@@ -15,13 +15,13 @@ env:
   IMAGE_NAME: ${{ github.repository }}
   GODOT_VERSION: 3.4.4
 jobs:
-  docker-build-and-push-image:
+  build-and-test:
     strategy:
       matrix:
         include:
           - profile: "Windows Desktop"
             flavour: windows
-
+            executable_name: steel_chalk_asset.exe
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -35,9 +35,9 @@ jobs:
           godot-version: ${{ env.GODOT_VERSION }}
       - name: Export Project
         run: |
-          godot --export '${{ matrix.profile }}'
+          godot --export '${{ matrix.profile }}' '${{ matrix.executable_name }}'
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: "steel-chalk-asset-${{ matrix.flavour}}"
-          path: ./steel_chalk_asset.exe
+          path: ${{ matrix.executable_name }}
