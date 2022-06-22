@@ -71,5 +71,6 @@ jobs:
         with:
           tag_name: ${{ steps.git-version.outputs.semVer }}
           name: Release ${{ steps.git-version.outputs.semVer }}
+          generate_release_notes: true
           files: |
             ${{steps.download.outputs.download-path}}/**
