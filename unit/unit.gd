@@ -52,9 +52,9 @@ func get_drag_data(drag_offset):
 	return self
 	
 func drop_data(vec2, variant):
-	#Try buying a card
+	#Try buying a card directly onto another card: return
 	if variant.slot_type == SLOT_TYPE.SHOP && slot_type == SLOT_TYPE.PLAYER:
-		pass
+		return
 	#Swap cards in player deck
 	if variant.slot_type == SLOT_TYPE.PLAYER && slot_type == SLOT_TYPE.PLAYER:
 		$DropSFX.play()
@@ -67,9 +67,6 @@ func drop_data(vec2, variant):
 
 func can_drop_data(vec2, variant):
 	#Assuming we will only ever get cards as variants.
-	#Only deal with swapping or buying.
-	#Check if card being dragged is from PLAYER and we
-	#Are a card in a PLAYER slot ie PLAYER to PLAYER only.
 	return (variant.slot_type == SLOT_TYPE.SHOP || \
 	variant.slot_type == SLOT_TYPE.PLAYER) && \
 	self.slot_type == SLOT_TYPE.PLAYER

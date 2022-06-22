@@ -49,6 +49,8 @@ func _on_Reroll_pressed():
 		var unit = unit_scene.instance()
 		rng.randomize()
 		unit.unit_type = load(card_types[rng.randi_range(0, len(card_types) - 1)])
+		#Set to shop slot
+		unit.slot_type = 1
 		node.get_node("Control").add_child(unit)
 
 func _on_ClearTeam_pressed():
