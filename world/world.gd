@@ -13,7 +13,7 @@ var card_types: Array = ["res://unit/unit_data/unit_lungs.tres",
 						"res://unit/unit_data/unit_shield.tres",
 						"res://unit/unit_data/unit_skull.tres",
 						"res://unit/unit_data/unit_chicken.tres",
-                        "res://unit/unit_data/unit_friendly_cat.tres"]
+						"res://unit/unit_data/unit_friendly_cat.tres"]
 
 #Decks
 onready var enemy_deck = $VB/EnemyCards
