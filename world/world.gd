@@ -38,21 +38,26 @@ func _ready():
 	for child in shop_deck.get_children():
 		if child.get_filename() == "res://card_slot/card_slot.tscn":
 			shop_slots.append(child)
+	load_unit_data()
+	
+func load_unit_data():
 	var dir = Directory.new()
+	var card_types_paths = []
 	if dir.open(unit_data_path) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if !dir.current_is_dir():
-				card_types.append(unit_data_path + file_name)
+				card_types_paths.append(unit_data_path + file_name)
 			file_name = dir.get_next()
-	print(card_types)
+	# preload all card types
+	for unit_type in card_types_paths:
+		card_types.append(load(unit_type))
 
 func _process(delta):
 	$Debug/Panel/MarginContainer/VB/Level.text = "GAME LEVEL: " + str(game_level)
 	$Debug/Panel/MarginContainer/VB/Gold.text = "GOLD: " + str(player_gold)
 	$Debug/Panel/MarginContainer/VB/State.text = "STATE: " + str(game_state)
-
 
 #Debug
 func _on_Reroll_pressed():
