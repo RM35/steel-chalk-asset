@@ -48,6 +48,12 @@ jobs:
         # Setup debug keystore for now
         run: |
           keytool -keyalg RSA -genkeypair -alias androiddebugkey -keypass android -keystore debug.keystore -storepass android -dname "CN=Android Debug,O=Android,C=US" -validity 9999 -deststoretype pkcs12
+      - name: Setup Android SDK Path
+        if: ${{ matrix.profile == 'Android' }}
+        run: |
+          mkdir -p ~/.config/godot
+          touch ~/.config/godot/editor_settings-3.tres
+          echo 'export/android/android_sdk_path = "/usr/local/lib/android/sdk"' | tee ~/.config/godot/editor_settings-3.tres
       - name: Export Project
         run: |
           godot --path ${{ github.workspace }} --export '${{ matrix.profile }}'
