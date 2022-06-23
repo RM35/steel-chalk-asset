@@ -10,7 +10,10 @@ var move_delay = 0.5
 #Cards
 onready var unit_scene = preload("res://unit/unit.tscn")
 var unit_data_path = "res://unit/unit_data/"
-var card_types: Array = []
+var card_types: Dictionary = {0:{}, 1:{}, 2:{}, 3:{}} #4 rarities
+var card_chances: Dictionary = {1: [100, 0, 0, 0], 2: [100, 0, 0, 0],
+	3: [75 ,25, 0, 0], 4: [55 ,30, 15, 0], 5: [45 , 33, 20, 2]}
+var card_pools: Array = [30, 20, 15, 10]
 
 #Decks
 onready var enemy_deck = $VB/EnemyCards
@@ -50,9 +53,12 @@ func load_unit_data():
 			if !dir.current_is_dir():
 				card_types_paths.append(unit_data_path + file_name)
 			file_name = dir.get_next()
-	# preload all card types
+	#preload all card types so they are not loaded on demand
 	for unit_type in card_types_paths:
-		card_types.append(load(unit_type))
+		var l_u_t = load(unit_type) # loaded_unit_type
+		print(l_u_t.rarity)
+		card_types[l_u_t.rarity][l_u_t.unit_name] = \
+			{"res": l_u_t, "pool_count": card_pools[l_u_t.rarity]}
 
 func _process(delta):
 	$Debug/Panel/MarginContainer/VB/Level.text = "GAME LEVEL: " + str(game_level)
