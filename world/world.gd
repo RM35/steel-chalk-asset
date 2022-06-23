@@ -13,7 +13,7 @@ var card_types: Array = ["res://unit/unit_data/unit_lungs.tres",
 						"res://unit/unit_data/unit_shield.tres",
 						"res://unit/unit_data/unit_skull.tres",
 						"res://unit/unit_data/unit_chicken.tres",
-                        "res://unit/unit_data/unit_friendly_cat.tres"]
+						"res://unit/unit_data/unit_friendly_cat.tres"]
 
 #Decks
 onready var enemy_deck = $VB/EnemyCards
@@ -41,6 +41,9 @@ func _ready():
 	for child in shop_deck.get_children():
 		if child.get_filename() == "res://card_slot/card_slot.tscn":
 			shop_slots.append(child)
+	var dir = Directory.new()
+	if dir.open(path) == OK:
+		
 
 func _process(delta):
 	$Debug/Panel/MarginContainer/VB/Level.text = "GAME LEVEL: " + str(game_level)
