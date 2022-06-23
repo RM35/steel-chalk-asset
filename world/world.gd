@@ -41,9 +41,6 @@ func _ready():
 	for child in shop_deck.get_children():
 		if child.get_filename() == "res://card_slot/card_slot.tscn":
 			shop_slots.append(child)
-	var dir = Directory.new()
-	if dir.open(path) == OK:
-		
 
 func _process(delta):
 	$Debug/Panel/MarginContainer/VB/Level.text = "GAME LEVEL: " + str(game_level)
