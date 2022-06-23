@@ -43,6 +43,11 @@ jobs:
       - name: Setup Android SDK
         if: ${{ matrix.profile == 'Android' }}
         uses: android-actions/setup-android@v2
+      - name: Setup Android Keystore
+        if: ${{ matrix.profile == 'Android' }}
+        # Setup debug keystore for now
+        run: |
+          keytool -keyalg RSA -genkeypair -alias androiddebugkey -keypass android -keystore debug.keystore -storepass android -dname "CN=Android Debug,O=Android,C=US" -validity 9999 -deststoretype pkcs12
       - name: Export Project
         run: |
           godot --path ${{ github.workspace }} --export '${{ matrix.profile }}'
