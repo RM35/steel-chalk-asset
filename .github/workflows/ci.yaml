@@ -19,8 +19,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - profile: "Windows Desktop"
+          - profile: Windows Desktop
             flavour: windows
+          - profile: Android
+            flavour: android
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -32,6 +34,12 @@ jobs:
         uses: vitorgus/setup-godot@v1
         with:
           godot-version: ${{ env.GODOT_VERSION }}
+      - name: Setup Java
+        if: ${{ matrix.profile == 'Android' }}
+        uses: actions/setup-java@v3
+      - name: Setup Android SDK
+        if: ${{ matrix.profile == 'Android' }}
+        uses: android-actions/setup-android@v2
       - name: Export Project
         run: |
           godot --path ${{ github.workspace }} --export '${{ matrix.profile }}'
