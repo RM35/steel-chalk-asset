@@ -9,11 +9,7 @@ var move_delay = 0.5
 
 #Cards
 onready var unit_scene = preload("res://unit/unit.tscn")
-var card_types: Array = ["res://unit/unit_data/unit_lungs.tres",
-						"res://unit/unit_data/unit_shield.tres",
-						"res://unit/unit_data/unit_skull.tres",
-						"res://unit/unit_data/unit_chicken.tres",
-                        "res://unit/unit_data/unit_friendly_cat.tres"]
+var card_types: Array = card_types_from_directory("res://unit/unit_data/")
 
 #Decks
 onready var enemy_deck = $VB/EnemyCards
@@ -47,6 +43,28 @@ func _process(delta):
 	$Debug/Panel/MarginContainer/VB/Gold.text = "GOLD: " + str(player_gold)
 	$Debug/Panel/MarginContainer/VB/State.text = "STATE: " + str(game_state)
 
+# Non recursively searches the directory
+func files_with_extension(directory_path: String, extension: String) -> Array:
+	var card_types := []
+	var card_directory := Directory.new()
+	
+	extension = extension.trim_prefix(".")
+
+	var result := card_directory.open(directory_path)
+	if result == OK:
+		card_directory.list_dir_begin()
+		var filename := card_directory.get_next()
+		while filename:
+			if filename.get_extension() == extension:
+				card_types.append(directory_path + filename)
+			filename = card_directory.get_next()
+	else:
+		push_error("Error: Couldn't open card directory. Error Code: " + str(result))
+		
+	return card_types
+
+func card_types_from_directory(directory_path: String) -> Array:
+	return files_with_extension(directory_path, "tres")
 
 #Debug
 func _on_Reroll_pressed():
