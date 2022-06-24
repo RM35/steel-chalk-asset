@@ -191,39 +191,67 @@ func _on_MoveDelay_timeout():
 # Ability triggers
 func trig_on_sell(unit, team):
 	if unit.unit_type.ability_trigger == 0:
-		ability_output(unit, unit.unit_type.ability_parameters)
+		ability_output(unit, unit.unit_type.ability_parameters, team)
 
 func trig_on_buy(unit, team):
 	if unit.unit_type.ability_trigger == 1:
-		ability_output(unit, unit.unit_type.ability_parameters)
+		ability_output(unit, unit.unit_type.ability_parameters, team)
 
 func trig_on_faint(unit, team):
 	if unit.unit_type.ability_trigger == 2:
-		ability_output(unit, unit.unit_type.ability_parameters)
+		ability_output(unit, unit.unit_type.ability_parameters, team)
 		
 func trig_on_damage(unit, team):
 	if unit.unit_type.ability_trigger == 3:
-		ability_output(unit, unit.unit_type.ability_parameters)
+		ability_output(unit, unit.unit_type.ability_parameters, team)
 
 func trig_on_attack(unit, team):
 	if unit.unit_type.ability_trigger == 4:
-		ability_output(unit, unit.unit_type.ability_parameters)
+		ability_output(unit, unit.unit_type.ability_parameters, team)
 
 # Ability outputs
-func ability_output(unit, value: int):
+func ability_output(unit, value: int, team):
 	match unit.unit_type.ability_output:
 		0:
+			#Not implemented
 			print("OUTPUT DAMAGE")
 		1:
-			print("OUTPUT HEALTH")
+			#Heal next alive ally for now
+			var deck = null
+			if team == "player":
+				deck = player_slots
+			else:
+				deck = enemy_slots
+			for node in deck:
+				if node.get_node("Control").get_child_count() != 0:
+					if node.get_node("Control").get_child(0).battle_health > 0:
+						if node.get_node("Control").get_child(0) != unit:
+							node.get_node("Control").get_child(0).battle_health += value
 		2:
-			print("OUTPUT CHANGE ATTACK")#
+			unit.attack += value
 		3:
-			print("OUTPUT CHANGE GOLD")
+			player_gold += value
+			$GoldSFX.play()
 		4:
+			#Not implemented
 			print("OUTPUT SUMMON NEW")
 		5:
-			print("OUTPUT AOE DAMAGE")
+			var deck = null
+			if team == "player":
+				deck = enemy_slots
+			else:
+				deck = player_slots
+			for node in deck:
+				if node.get_node("Control").get_child_count() != 0:
+					if node.get_node("Control").get_child(0).battle_health > 0:
+						node.get_node("Control").get_child(0).battle_health -= value
+						if node.get_node("Control").get_child(0).battle_health <= 0:
+							trig_on_faint(node.get_node("Control").get_child(0).battle_health, "player")
+							node.get_node("Control").get_child(0).battle_health.alive = false
+						if node.get_node("Control").get_child(0).battle_health <= 0:
+							trig_on_faint(node.get_node("Control").get_child(0).battle_health, "enemy")
+							node.get_node("Control").get_child(0).battle_health.alive = false
+	return false
 
 func _on_LevelUp_pressed():
 	game_level += 1
