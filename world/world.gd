@@ -12,7 +12,7 @@ onready var unit_scene = preload("res://unit/unit.tscn")
 var unit_data_path = "res://unit/unit_data/"
 var card_types: Dictionary = {0:{}, 1:{}, 2:{}, 3:{}} #4 rarities
 var card_chances: Dictionary = {1: [100, 0, 0, 0], 2: [100, 0, 0, 0],
-	3: [75 ,25, 0, 0], 4: [55 ,30, 15, 0], 5: [45 , 33, 20, 2]}
+	3: [75 ,100, 0, 0], 4: [55 ,85, 100, 0], 5: [45 , 77, 98, 100]}
 var card_pools: Array = [30, 20, 15, 10]
 
 #Decks
@@ -61,7 +61,7 @@ func load_unit_data():
 			{"res": l_u_t, "pool_count": card_pools[l_u_t.rarity]}
 
 func _process(delta):
-	$Debug/Panel/MarginContainer/VB/Level.text = "GAME LEVEL: " + str(game_level)
+	$Debug/Panel/MarginContainer/VB/HB/Level.text = "GAME LEVEL: " + str(game_level)
 	$Debug/Panel/MarginContainer/VB/Gold.text = "GOLD: " + str(player_gold)
 	$Debug/Panel/MarginContainer/VB/State.text = "STATE: " + str(game_state)
 
@@ -76,11 +76,40 @@ func _on_Reroll_pressed():
 			#Equally random for now
 			var unit = unit_scene.instance()
 			rng.randomize()
-			unit.unit_type = load(card_types[rng.randi_range(0, len(card_types) - 1)])
+			unit.unit_type = get_card()
 			#Set to shop slot
 			unit.slot_type = 1
 			node.get_node("Control").add_child(unit)
 
+func get_card():
+	#First get rarity
+	var rarity_roll = rng.randi_range(0, 99)
+	var current_chances = card_chances[game_level]
+	var _rarity = 0
+	print(rarity_roll)
+	print("CUR CHANCES: " + str(current_chances))
+	if rarity_roll <= current_chances[0] - 1:
+		#Uncommon
+		_rarity = 0
+	elif rarity_roll <= current_chances[1] - 1:
+		#Uncommon
+		_rarity = 1
+	elif rarity_roll <= current_chances[2] - 1:
+		#Rare
+		_rarity = 2
+	elif rarity_roll <= current_chances[3] - 1:
+		#Legend
+		_rarity = 3
+	print(_rarity)
+		
+	#Build pool, doing this with array of all cards.
+	var pool_cards = []
+	for unit in card_types[_rarity]:
+		for i in range(card_types[_rarity][unit]["pool_count"]):
+			pool_cards.append(card_types[_rarity][unit])
+	#Pick a card, any card
+	return pool_cards[rng.randi_range(0, len(pool_cards) - 1)]["res"]
+	
 func _on_ClearTeam_pressed():
 	for node in player_slots:
 		if node.get_node("Control").get_child_count() != 0:
@@ -108,7 +137,7 @@ func reroll_enemies():
 		#Equally random for now
 		var unit = unit_scene.instance()
 		rng.randomize()
-		unit.unit_type = load(card_types[rng.randi_range(0, len(card_types) - 1)])
+		unit.unit_type = get_card()
 		#Set to shop slot
 		unit.slot_type = 2
 		node.get_node("Control").add_child(unit)
@@ -154,3 +183,11 @@ func _on_MoveDelay_timeout():
 	player.play_attack_tween()
 	if player.battle_health <= 0: player.alive = false
 	if enemy.battle_health <= 0: enemy.alive = false
+
+
+func _on_LevelUp_pressed():
+	game_level += 1
+
+
+func _on_LevelDown_pressed():
+	game_level -= 1
