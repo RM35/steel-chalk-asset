@@ -180,10 +180,18 @@ func _on_MoveDelay_timeout():
 		return
 	enemy.battle_health -= player.attack
 	player.battle_health -= enemy.attack
+	player.trig_on_damage()
+	enemy.trig_on_damage()
 	enemy.play_attack_tween()
 	player.play_attack_tween()
-	if player.battle_health <= 0: player.alive = false
-	if enemy.battle_health <= 0: enemy.alive = false
+	player.trig_on_attack()
+	enemy.trig_on_attack()
+	if player.battle_health <= 0:
+		player.trig_on_faint()
+		player.alive = false
+	if enemy.battle_health <= 0:
+		enemy.trig_on_faint()
+		enemy.alive = false
 
 
 func _on_LevelUp_pressed():
