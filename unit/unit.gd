@@ -1,6 +1,6 @@
 extends TextureRect
 
-export(Resource) var unit_type = load("res://unit/unit_data/unit_skull.tres")
+export(Resource) var unit_type
 
 var unit_name: String = "Default"
 var health: int = 0
