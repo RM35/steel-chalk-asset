@@ -9,6 +9,7 @@ var move_delay = 0.5
 
 #Cards
 onready var unit_scene = preload("res://unit/unit.tscn")
+
 var unit_data_path = "res://unit/unit_data/"
 var card_types: Dictionary = {0:{}, 1:{}, 2:{}, 3:{}} #4 rarities
 var card_chances: Dictionary = {1: [100, 0, 0, 0], 2: [100, 0, 0, 0],
