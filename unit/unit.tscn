@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://unit/textures/steel_card.png" type="Texture" id=1]
 [ext_resource path="res://unit/textures/icons.png" type="Texture" id=2]
@@ -24,6 +24,9 @@ font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=4]
 size = 32
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 7 )
 
 [node name="Unit" type="TextureRect"]
@@ -159,3 +162,24 @@ volume_db = -21.784
 pitch_scale = 2.7
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="TT" type="Panel" parent="."]
+visible = false
+margin_left = 20.0
+margin_top = 145.0
+margin_right = 168.0
+margin_bottom = 256.0
+mouse_filter = 2
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="TT"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 5 )
+text = "SAMPLE
+TEXT"
+
+[connection signal="mouse_entered" from="." to="." method="_on_Unit_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Unit_mouse_exited"]

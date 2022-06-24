@@ -12,6 +12,10 @@ var sprite_region_rect: Rect2
 enum SLOT_TYPE{PLAYER, SHOP, ENEMY, NONE}
 export(SLOT_TYPE) var slot_type = SLOT_TYPE.NONE
 
+#Ability enums (from unit_stats.gd)
+enum ABILITY_TRIGGER{ON_SELL, ON_BUY, ON_FAINT, ON_DAMAGE, ON_ATTACK}
+enum ABILITY_OUTPUT{DAMAGE, CHANGE_HEALTH, CHANGE_ATTACK, CHANGE_GOLD, SUMMON_NEW, AOE_DAMAGE}
+
 #Battle
 var battle_health = 0
 var alive = true
@@ -32,6 +36,10 @@ func _ready():
 	sprite_region_rect = unit_type.sprite_region_rect
 	battle_health = health
 	update_card()
+	
+	#Set tooltip text
+	$TT/Label.text = "TRIGGER:\n" + str(ABILITY_TRIGGER.keys()[unit_type.ability_trigger])\
+					 + "\nOUTPUT:\n" + str(ABILITY_OUTPUT.keys()[unit_type.ability_output])
 
 func _process(_delta):
 	if !alive:
@@ -138,3 +146,9 @@ func play_attack_tween():
 		yield($Tween, "tween_completed")
 		$Tween.interpolate_property(self, "rect_position", self.rect_position, rect_pos_origin, world.move_delay / 2, Tween.TRANS_LINEAR)
 		$Tween.start()
+
+func _on_Unit_mouse_entered():
+	$TT.visible = true
+	
+func _on_Unit_mouse_exited():
+	$TT.visible = false 
