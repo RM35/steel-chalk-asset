@@ -32,7 +32,6 @@ func _ready():
 	sprite_region_rect = unit_type.sprite_region_rect
 	battle_health = health
 	update_card()
-	test_trig()
 
 func _process(_delta):
 	if !alive:
