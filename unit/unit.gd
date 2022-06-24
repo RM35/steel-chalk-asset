@@ -144,12 +144,3 @@ func play_attack_tween():
 		yield($Tween, "tween_completed")
 		$Tween.interpolate_property(self, "rect_position", self.rect_position, rect_pos_origin, world.move_delay / 2, Tween.TRANS_LINEAR)
 		$Tween.start()
-
-	
-# Debug/Dev Functions
-func test_trig():
-	trig_on_attack()
-	trig_on_buy()
-	trig_on_damage()
-	trig_on_faint()
-	trig_on_sell()
