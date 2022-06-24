@@ -100,43 +100,6 @@ func can_drop_data(vec2, variant):
 	variant.slot_type == SLOT_TYPE.PLAYER) && \
 	self.slot_type == SLOT_TYPE.PLAYER
 
-# Ability triggers
-func trig_on_sell():
-	if unit_type.ability_trigger == 0:
-		ability_output(unit_type.ability_parameters)
-
-func trig_on_buy():
-	if unit_type.ability_trigger == 1:
-		ability_output(unit_type.ability_parameters)
-
-func trig_on_faint():
-	if unit_type.ability_trigger == 2:
-		ability_output(unit_type.ability_parameters)
-		
-func trig_on_damage():
-	if unit_type.ability_trigger == 3:
-		ability_output(unit_type.ability_parameters)
-
-func trig_on_attack():
-	if unit_type.ability_trigger == 4:
-		ability_output(unit_type.ability_parameters)
-
-# Ability outputs
-func ability_output(value: int):
-	match unit_type.ability_output:
-		0:
-			print("OUTPUT DAMAGE")
-		1:
-			print("OUTPUT HEALTH")
-		2:
-			print("OUTPUT CHANGE ATTACK")#
-		3:
-			print("OUTPUT CHANGE GOLD")
-		4:
-			print("OUTPUT SUMMON NEW")
-		5:
-			print("OUTPUT AOE DAMAGE")
-
 func play_attack_tween():
 	$DropSFX.play()
 	if !$Tween.is_active():

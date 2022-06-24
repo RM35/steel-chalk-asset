@@ -175,23 +175,58 @@ func _on_MoveDelay_timeout():
 		return
 	enemy.battle_health -= player.attack
 	player.battle_health -= enemy.attack
-	player.trig_on_damage()
-	enemy.trig_on_damage()
+	trig_on_damage(player, "player")
+	trig_on_damage(enemy, "enemy")
 	enemy.play_attack_tween()
 	player.play_attack_tween()
-	player.trig_on_attack()
-	enemy.trig_on_attack()
+	trig_on_attack(player, "player")
+	trig_on_attack(enemy, "enemy")
 	if player.battle_health <= 0:
-		player.trig_on_faint()
+		trig_on_faint(player, "player")
 		player.alive = false
 	if enemy.battle_health <= 0:
-		enemy.trig_on_faint()
+		trig_on_faint(enemy, "enemy")
 		enemy.alive = false
 
+# Ability triggers
+func trig_on_sell(unit, team):
+	if unit.unit_type.ability_trigger == 0:
+		ability_output(unit, unit.unit_type.ability_parameters)
+
+func trig_on_buy(unit, team):
+	if unit.unit_type.ability_trigger == 1:
+		ability_output(unit, unit.unit_type.ability_parameters)
+
+func trig_on_faint(unit, team):
+	if unit.unit_type.ability_trigger == 2:
+		ability_output(unit, unit.unit_type.ability_parameters)
+		
+func trig_on_damage(unit, team):
+	if unit.unit_type.ability_trigger == 3:
+		ability_output(unit, unit.unit_type.ability_parameters)
+
+func trig_on_attack(unit, team):
+	if unit.unit_type.ability_trigger == 4:
+		ability_output(unit, unit.unit_type.ability_parameters)
+
+# Ability outputs
+func ability_output(unit, value: int):
+	match unit.unit_type.ability_output:
+		0:
+			print("OUTPUT DAMAGE")
+		1:
+			print("OUTPUT HEALTH")
+		2:
+			print("OUTPUT CHANGE ATTACK")#
+		3:
+			print("OUTPUT CHANGE GOLD")
+		4:
+			print("OUTPUT SUMMON NEW")
+		5:
+			print("OUTPUT AOE DAMAGE")
 
 func _on_LevelUp_pressed():
 	game_level += 1
-
 
 func _on_LevelDown_pressed():
 	game_level -= 1
