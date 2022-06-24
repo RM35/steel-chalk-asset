@@ -96,27 +96,22 @@ func can_drop_data(vec2, variant):
 # Ability triggers
 func trig_on_sell():
 	if unit_type.ability_trigger == 0:
-		print("ON SELL TRIGGERED")
 		ability_output(unit_type.ability_parameters)
 
 func trig_on_buy():
 	if unit_type.ability_trigger == 1:
-		print("ON BUY TRIGGERED")
 		ability_output(unit_type.ability_parameters)
 
 func trig_on_faint():
 	if unit_type.ability_trigger == 2:
-		print("ON FAINT TRIGGERED")
 		ability_output(unit_type.ability_parameters)
 		
 func trig_on_damage():
 	if unit_type.ability_trigger == 3:
-		print("ON DAMAGE TRIGGERED")
 		ability_output(unit_type.ability_parameters)
 
 func trig_on_attack():
 	if unit_type.ability_trigger == 4:
-		print("ON ATTACK TRIGGERED")
 		ability_output(unit_type.ability_parameters)
 
 # Ability outputs

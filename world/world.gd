@@ -57,7 +57,6 @@ func load_unit_data():
 	#preload all card types so they are not loaded on demand
 	for unit_type in card_types_paths:
 		var l_u_t = load(unit_type) # loaded_unit_type
-		print(l_u_t.rarity)
 		card_types[l_u_t.rarity][l_u_t.unit_name] = \
 			{"res": l_u_t, "pool_count": card_pools[l_u_t.rarity]}
 
@@ -87,8 +86,6 @@ func get_card():
 	var rarity_roll = rng.randi_range(0, 99)
 	var current_chances = card_chances[game_level]
 	var _rarity = 0
-	print(rarity_roll)
-	print("CUR CHANCES: " + str(current_chances))
 	if rarity_roll <= current_chances[0] - 1:
 		#Uncommon
 		_rarity = 0
@@ -101,7 +98,6 @@ func get_card():
 	elif rarity_roll <= current_chances[3] - 1:
 		#Legend
 		_rarity = 3
-	print(_rarity)
 		
 	#Build pool, doing this with array of all cards.
 	var pool_cards = []
