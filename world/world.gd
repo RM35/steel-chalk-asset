@@ -73,7 +73,6 @@ func _on_Reroll_pressed():
 		for node in shop_slots:
 			if node.get_node("Control").get_child_count() != 0:
 				node.get_node("Control").get_child(0).queue_free()
-			#Equally random for now
 			var unit = unit_scene.instance()
 			rng.randomize()
 			unit.unit_type = get_card()
