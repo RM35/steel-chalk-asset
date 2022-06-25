@@ -4,13 +4,13 @@
 
 [resource]
 script = ExtResource( 1 )
-unit_name = "CHICKEN"
-health = 10
-attack = 3
+unit_name = "HEAL"
+health = 1
+attack = 1
 level = 1
 cost = 0
-rarity = 2
-sprite_region_rect = Rect2( 480, 448, 32, 32 )
-ability_trigger = 3
+rarity = 1
+sprite_region_rect = Rect2( 160, 96, 32, 32 )
+ability_trigger = 2
 ability_output = 1
 ability_parameters = 2

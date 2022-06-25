@@ -91,7 +91,7 @@ func _on_Reroll_pressed(free: bool = false):
 func get_card():
 	#First get rarity
 	var rarity_roll = rng.randi_range(0, 99)
-	var current_chances = card_chances[game_level]
+	var current_chances = card_chances[clamp(game_level, 1, 5)]
 	var _rarity = 0
 	if rarity_roll <= current_chances[0] - 1:
 		#Uncommon

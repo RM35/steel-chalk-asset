@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/abs-confirm-1.mp3-832a98e6f59532d770ce93d6dd9b9141.mp3str"
+
+[deps]
+
+source_file="res://world/sounds/abs-confirm-1.mp3"
+dest_files=[ "res://.import/abs-confirm-1.mp3-832a98e6f59532d770ce93d6dd9b9141.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
