@@ -174,7 +174,6 @@ func end_battle():
 			var unit = node.get_node("Control").get_child(0)
 			unit.battle_health = unit.health
 			unit.alive = true
-	game_level += 1
 	$MoveDelay.stop()
 
 #Main battle logic
@@ -289,5 +288,6 @@ func _on_Button_pressed():
 	end_battle()
 	game_level = 1
 	player_gold = 10
+	_on_ClearTeam_pressed()
 	clear_shop()
 	_on_Reroll_pressed(true)
