@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://card_slot/card_slot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/world.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://sell_box/sell_box.tscn" type="PackedScene" id=6]
 [ext_resource path="res://unit/textures/Poppins-Black.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://world/sounds/abs-confirm-1.mp3" type="AudioStream" id=8]
+[ext_resource path="res://unit/textures/icons.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=2]
 font_data = ExtResource( 7 )
@@ -20,6 +21,7 @@ border_width_right = 10
 border_width_bottom = 10
 
 [sub_resource type="DynamicFont" id=3]
+size = 32
 font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=4]
@@ -31,6 +33,10 @@ font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=6]
 size = 32
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 12
 font_data = ExtResource( 7 )
 
 [node name="World" type="Control"]
@@ -300,10 +306,10 @@ custom_fonts/font = SubResource( 5 )
 text = "Start Level"
 
 [node name="Gold" type="Label" parent="MainInfo"]
-margin_left = -59.0
-margin_top = 248.0
-margin_right = 133.0
-margin_bottom = 271.0
+margin_left = -103.0
+margin_top = 241.0
+margin_right = 89.0
+margin_bottom = 287.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 custom_fonts/font = SubResource( 3 )
@@ -312,10 +318,10 @@ align = 1
 valign = 1
 
 [node name="Level" type="Label" parent="MainInfo"]
-margin_left = 11.0
-margin_top = 275.0
-margin_right = 72.0
-margin_bottom = 298.0
+margin_left = -64.0
+margin_top = 297.0
+margin_right = 40.0
+margin_bottom = 343.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 custom_fonts/font = SubResource( 3 )
@@ -335,6 +341,44 @@ margin_bottom = 158.0
 custom_fonts/font = SubResource( 6 )
 text = "Restart"
 
+[node name="Death" type="Sprite" parent="."]
+visible = false
+position = Vector2( 931, 424 )
+scale = Vector2( 15, 15 )
+texture = ExtResource( 9 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 32, 32 )
+
+[node name="Timer2" type="Timer" parent="Death"]
+one_shot = true
+
+[node name="Label" type="Label" parent="Death"]
+margin_left = -28.3333
+margin_top = 9.86667
+margin_right = 927.667
+margin_bottom = 289.867
+custom_fonts/font = SubResource( 7 )
+text = "YOU DIED"
+
+[node name="Win" type="Sprite" parent="."]
+visible = false
+position = Vector2( 931, 424 )
+scale = Vector2( 15, 15 )
+texture = ExtResource( 9 )
+region_enabled = true
+region_rect = Rect2( 0, 64, 32, 32 )
+
+[node name="Timer" type="Timer" parent="Win"]
+one_shot = true
+
+[node name="Label" type="Label" parent="Win"]
+margin_left = -28.3333
+margin_top = 9.86667
+margin_right = 927.667
+margin_bottom = 289.867
+custom_fonts/font = SubResource( 7 )
+text = "LEVEL WON"
+
 [connection signal="pressed" from="VB/ShopCards/VB/Reroll" to="." method="_on_Reroll_pressed"]
 [connection signal="pressed" from="VB/ShopCards/VB/ClearTeam" to="." method="_on_ClearTeam_pressed"]
 [connection signal="pressed" from="Debug/Panel/MarginContainer/VB/HB/LevelUp" to="." method="_on_LevelUp_pressed"]
@@ -342,3 +386,5 @@ text = "Restart"
 [connection signal="timeout" from="MoveDelay" to="." method="_on_MoveDelay_timeout"]
 [connection signal="pressed" from="MainInfo/Battle" to="." method="_on_Battle_pressed"]
 [connection signal="pressed" from="MainInfo/Button" to="." method="_on_Button_pressed"]
+[connection signal="timeout" from="Death/Timer2" to="." method="_on_Timer2_timeout"]
+[connection signal="timeout" from="Win/Timer" to="." method="_on_Timer_timeout"]

@@ -185,6 +185,8 @@ func _on_MoveDelay_timeout():
 		game_level += 1
 		player_gold += 15
 		_on_Reroll_pressed(true)
+		$Win.visible = true
+		$Win/Timer.start()
 		return
 	if !player:
 		end_battle()
@@ -193,6 +195,8 @@ func _on_MoveDelay_timeout():
 		clear_shop()
 		_on_ClearTeam_pressed()
 		_on_Reroll_pressed(true)
+		$Death.visible = true
+		$Death/Timer.start()
 		return
 	enemy.battle_health -= player.attack
 	player.battle_health -= enemy.attack
@@ -291,3 +295,11 @@ func _on_Button_pressed():
 	_on_ClearTeam_pressed()
 	clear_shop()
 	_on_Reroll_pressed(true)
+
+
+func _on_Timer_timeout():
+	$Win.visible = false
+
+
+func _on_Timer2_timeout():
+	$Death.visible = false
