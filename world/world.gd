@@ -165,13 +165,23 @@ func end_battle():
 			var unit = node.get_node("Control").get_child(0)
 			unit.battle_health = unit.health
 			unit.alive = true
+	game_level += 1
+	$MoveDelay.stop()
 
 #Main battle logic
 func _on_MoveDelay_timeout():
+	$MoveDelay.wait_time = move_delay
 	var enemy = get_next_alive_enemy()
 	var player = get_next_alive_player()
-	if !(enemy && player):
+	if !enemy:
 		end_battle()
+		game_level += 1
+		player_gold += 15
+		return
+	if !player:
+		end_battle()
+		game_level = 1
+		player_gold = 10
 		return
 	enemy.battle_health -= player.attack
 	player.battle_health -= enemy.attack
@@ -211,6 +221,7 @@ func trig_on_attack(unit, team):
 
 # Ability outputs
 func ability_output(unit, value: int, team):
+	$MoveDelay.wait_time += move_delay
 	match unit.unit_type.ability_output:
 		0:
 			#Not implemented
@@ -230,8 +241,9 @@ func ability_output(unit, value: int, team):
 		2:
 			unit.attack += value
 		3:
-			player_gold += value
-			$GoldSFX.play()
+			if team == "player":
+				player_gold += value
+				$GoldSFX.play()
 		4:
 			#Not implemented
 			print("OUTPUT SUMMON NEW")
@@ -243,14 +255,15 @@ func ability_output(unit, value: int, team):
 				deck = player_slots
 			for node in deck:
 				if node.get_node("Control").get_child_count() != 0:
-					if node.get_node("Control").get_child(0).battle_health > 0:
-						node.get_node("Control").get_child(0).battle_health -= value
-						if node.get_node("Control").get_child(0).battle_health <= 0:
-							trig_on_faint(node.get_node("Control").get_child(0).battle_health, "player")
-							node.get_node("Control").get_child(0).battle_health.alive = false
-						if node.get_node("Control").get_child(0).battle_health <= 0:
-							trig_on_faint(node.get_node("Control").get_child(0).battle_health, "enemy")
-							node.get_node("Control").get_child(0).battle_health.alive = false
+					var unit_node = node.get_node("Control").get_child(0)
+					if unit_node.battle_health > 0:
+						unit_node.battle_health -= value
+						if unit_node.battle_health <= 0 && team == "enemy":
+							trig_on_faint(unit_node, "player")
+							unit_node.alive = false
+						if unit_node.battle_health <= 0 && team == "player":
+							trig_on_faint(unit_node, "enemy")
+							unit_node.alive = false
 	return false
 
 func _on_LevelUp_pressed():
