@@ -123,14 +123,15 @@ custom_constants/separation = 20
 alignment = 1
 
 [node name="VB" type="VBoxContainer" parent="VB/ShopCards"]
-margin_left = 407.0
-margin_right = 478.0
+margin_left = 349.0
+margin_right = 536.0
 margin_bottom = 276.0
 custom_constants/separation = 50
 
 [node name="Reroll" type="Button" parent="VB/ShopCards/VB"]
-margin_right = 71.0
+margin_right = 187.0
 margin_bottom = 276.0
+rect_min_size = Vector2( 187, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 2 )
@@ -157,28 +158,28 @@ custom_styles/normal = ExtResource( 4 )
 text = "Clear Player Deck"
 
 [node name="CardSlot" parent="VB/ShopCards" instance=ExtResource( 1 )]
-margin_left = 498.0
-margin_right = 685.0
+margin_left = 556.0
+margin_right = 743.0
 margin_bottom = 276.0
 
 [node name="CardSlot2" parent="VB/ShopCards" instance=ExtResource( 1 )]
-margin_left = 705.0
-margin_right = 892.0
+margin_left = 763.0
+margin_right = 950.0
 margin_bottom = 276.0
 
 [node name="CardSlot3" parent="VB/ShopCards" instance=ExtResource( 1 )]
-margin_left = 912.0
-margin_right = 1099.0
+margin_left = 970.0
+margin_right = 1157.0
 margin_bottom = 276.0
 
 [node name="CardSlot4" parent="VB/ShopCards" instance=ExtResource( 1 )]
-margin_left = 1119.0
-margin_right = 1306.0
+margin_left = 1177.0
+margin_right = 1364.0
 margin_bottom = 276.0
 
 [node name="CardSlot5" parent="VB/ShopCards" instance=ExtResource( 1 )]
-margin_left = 1326.0
-margin_right = 1513.0
+margin_left = 1384.0
+margin_right = 1571.0
 margin_bottom = 276.0
 
 [node name="GoldSFX" type="AudioStreamPlayer" parent="."]
@@ -286,18 +287,18 @@ margin_right = 371.0
 margin_bottom = 296.0
 
 [node name="Battle" type="Button" parent="MainInfo"]
-margin_left = -12.0
-margin_top = 31.0
-margin_right = 180.0
-margin_bottom = 60.0
+margin_left = -44.0
+margin_top = -116.0
+margin_right = 196.0
+margin_bottom = 46.0
 custom_fonts/font = SubResource( 5 )
 text = "Start"
 
 [node name="Gold" type="Label" parent="MainInfo"]
-margin_left = -14.0
-margin_top = 65.0
-margin_right = 178.0
-margin_bottom = 88.0
+margin_left = -107.0
+margin_top = 549.0
+margin_right = 85.0
+margin_bottom = 572.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 custom_fonts/font = SubResource( 3 )
@@ -306,10 +307,10 @@ align = 1
 valign = 1
 
 [node name="Level" type="Label" parent="MainInfo"]
-margin_left = 53.0
-margin_top = 89.0
-margin_right = 114.0
-margin_bottom = 112.0
+margin_left = -39.0
+margin_top = 573.0
+margin_right = 22.0
+margin_bottom = 596.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 custom_fonts/font = SubResource( 3 )
@@ -322,10 +323,10 @@ margin_right = 114.0
 margin_bottom = 27.0
 
 [node name="Button" type="Button" parent="MainInfo"]
-margin_left = 2.0
-margin_top = 123.0
-margin_right = 163.0
-margin_bottom = 143.0
+margin_left = -39.0
+margin_top = 61.0
+margin_right = 193.0
+margin_bottom = 159.0
 text = "Restart"
 
 [connection signal="pressed" from="VB/ShopCards/VB/Reroll" to="." method="_on_Reroll_pressed"]
