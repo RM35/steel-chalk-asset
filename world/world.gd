@@ -191,6 +191,7 @@ func _on_MoveDelay_timeout():
 		game_level = 1
 		player_gold = 10
 		clear_shop()
+		_on_ClearTeam_pressed()
 		_on_Reroll_pressed(true)
 		return
 	enemy.battle_health -= player.attack
