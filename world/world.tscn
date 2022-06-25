@@ -123,14 +123,14 @@ custom_constants/separation = 20
 alignment = 1
 
 [node name="VB" type="VBoxContainer" parent="VB/ShopCards"]
-margin_left = 354.0
-margin_right = 531.0
+margin_left = 407.0
+margin_right = 478.0
 margin_bottom = 276.0
 custom_constants/separation = 50
 
 [node name="Reroll" type="Button" parent="VB/ShopCards/VB"]
-margin_right = 177.0
-margin_bottom = 113.0
+margin_right = 71.0
+margin_bottom = 276.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 2 )
@@ -142,6 +142,7 @@ custom_styles/normal = ExtResource( 4 )
 text = "Reroll"
 
 [node name="ClearTeam" type="Button" parent="VB/ShopCards/VB"]
+visible = false
 margin_top = 163.0
 margin_right = 177.0
 margin_bottom = 276.0
@@ -156,28 +157,28 @@ custom_styles/normal = ExtResource( 4 )
 text = "Clear Player Deck"
 
 [node name="CardSlot" parent="VB/ShopCards" instance=ExtResource( 1 )]
-margin_left = 551.0
-margin_right = 738.0
+margin_left = 498.0
+margin_right = 685.0
 margin_bottom = 276.0
 
 [node name="CardSlot2" parent="VB/ShopCards" instance=ExtResource( 1 )]
-margin_left = 758.0
-margin_right = 945.0
+margin_left = 705.0
+margin_right = 892.0
 margin_bottom = 276.0
 
 [node name="CardSlot3" parent="VB/ShopCards" instance=ExtResource( 1 )]
-margin_left = 965.0
-margin_right = 1152.0
+margin_left = 912.0
+margin_right = 1099.0
 margin_bottom = 276.0
 
 [node name="CardSlot4" parent="VB/ShopCards" instance=ExtResource( 1 )]
-margin_left = 1172.0
-margin_right = 1359.0
+margin_left = 1119.0
+margin_right = 1306.0
 margin_bottom = 276.0
 
 [node name="CardSlot5" parent="VB/ShopCards" instance=ExtResource( 1 )]
-margin_left = 1379.0
-margin_right = 1566.0
+margin_left = 1326.0
+margin_right = 1513.0
 margin_bottom = 276.0
 
 [node name="GoldSFX" type="AudioStreamPlayer" parent="."]
@@ -189,6 +190,7 @@ pitch_scale = 3.4
 stream = ExtResource( 5 )
 
 [node name="Debug" type="Control" parent="."]
+visible = false
 margin_left = 74.0
 margin_top = 393.0
 margin_right = 303.0

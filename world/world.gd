@@ -5,7 +5,7 @@ var player_gold = 10
 var game_level = 1
 enum GAME_STATE{IDLE, BATTLE}
 var game_state = GAME_STATE.IDLE
-var move_delay = 0.5
+var move_delay = 0.8
 
 #Cards
 onready var unit_scene = preload("res://unit/unit.tscn")
@@ -75,7 +75,7 @@ func _process(delta):
 func _on_Reroll_pressed(free: bool = false):
 	$RerollSFX.play()
 	if free:
-		player_gold + 2
+		player_gold += 2
 	if player_gold >= 2:
 		player_gold -= 2
 		for node in shop_slots:
@@ -91,7 +91,7 @@ func _on_Reroll_pressed(free: bool = false):
 func get_card():
 	#First get rarity
 	var rarity_roll = rng.randi_range(0, 99)
-	var current_chances = card_chances[clamp(game_level, 1, 5)]
+	var current_chances = card_chances[clamp((game_level/3), 1, 5)]
 	var _rarity = 0
 	if rarity_roll <= current_chances[0] - 1:
 		#Uncommon
