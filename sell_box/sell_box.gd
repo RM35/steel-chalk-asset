@@ -17,7 +17,7 @@ func get_drag_data(drag_offset):
 func drop_data(vec2, variant):
 	#Add sell SFX to unit scene
 	$SellSFX.play()
-	world.player_gold += variant.cost
+	world.player_gold += clamp(variant.cost - 1, 0, 5)
 	variant.get_parent().remove_child(variant)
 	variant.queue_free()
 	
