@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://unit/unit_stats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+unit_name = "DUST"
+health = 4
+attack = 4
+level = 1
+cost = 0
+rarity = 1
+sprite_region_rect = Rect2( 192, 640, 32, 32 )
+ability_trigger = 5
+ability_output = 6
+ability_parameters = 1
