@@ -306,10 +306,10 @@ custom_fonts/font = SubResource( 5 )
 text = "Start Level"
 
 [node name="Gold" type="Label" parent="MainInfo"]
-margin_left = -103.0
-margin_top = 241.0
-margin_right = 89.0
-margin_bottom = 287.0
+margin_left = -181.0
+margin_top = 251.0
+margin_right = 11.0
+margin_bottom = 297.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 custom_fonts/font = SubResource( 3 )
@@ -318,10 +318,10 @@ align = 1
 valign = 1
 
 [node name="Level" type="Label" parent="MainInfo"]
-margin_left = -64.0
-margin_top = 297.0
-margin_right = 40.0
-margin_bottom = 343.0
+margin_left = -138.0
+margin_top = 303.0
+margin_right = -34.0
+margin_bottom = 349.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 custom_fonts/font = SubResource( 3 )
