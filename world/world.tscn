@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://card_slot/card_slot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/world.gd" type="Script" id=2]
@@ -26,6 +26,11 @@ font_data = ExtResource( 7 )
 font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
 font_data = ExtResource( 7 )
 
 [node name="World" type="Control"]
@@ -292,7 +297,7 @@ margin_top = -116.0
 margin_right = 196.0
 margin_bottom = 46.0
 custom_fonts/font = SubResource( 5 )
-text = "Start / Next level"
+text = "Start Level"
 
 [node name="Gold" type="Label" parent="MainInfo"]
 margin_left = -59.0
@@ -327,6 +332,7 @@ margin_left = -43.0
 margin_top = 57.0
 margin_right = 194.0
 margin_bottom = 158.0
+custom_fonts/font = SubResource( 6 )
 text = "Restart"
 
 [connection signal="pressed" from="VB/ShopCards/VB/Reroll" to="." method="_on_Reroll_pressed"]
