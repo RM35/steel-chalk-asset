@@ -209,8 +209,6 @@ jobs:
           name: "steel-chalk-asset-${{ matrix.flavour}}"
           path: steel_chalk_asset*
   calculate-version:
-    needs:
-      - build-and-test
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.git-version.outputs.semVer }}
