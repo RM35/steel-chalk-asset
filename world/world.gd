@@ -183,7 +183,7 @@ func _on_MoveDelay_timeout():
 	if !enemy:
 		end_battle()
 		game_level += 1
-		player_gold += 15
+		player_gold += 5
 		_on_Reroll_pressed(true)
 		$Win.visible = true
 		$Win/Timer.start()
