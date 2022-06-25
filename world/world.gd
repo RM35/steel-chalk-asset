@@ -28,6 +28,9 @@ var shop_slots: Array
 export(Curve) var probability_curve: Curve
 var rng = RandomNumberGenerator.new()
 
+#Debug
+var debug_win_delay: float = 0
+
 func get_rarity():
 	rng.randomize()
 	return round(probability_curve.interpolate(rng.randf()))
@@ -61,9 +64,13 @@ func load_unit_data():
 			{"res": l_u_t, "pool_count": card_pools[l_u_t.rarity]}
 
 func _process(delta):
-	$Debug/Panel/MarginContainer/VB/HB/Level.text = "GAME LEVEL: " + str(game_level)
-	$Debug/Panel/MarginContainer/VB/Gold.text = "GOLD: " + str(player_gold)
-	$Debug/Panel/MarginContainer/VB/State.text = "STATE: " + str(game_state)
+	debug_win_delay += delta
+	$MainInfo/Level.text = "GAME LEVEL: " + str(game_level)
+	$MainInfo/Gold.text = "GOLD: " + str(player_gold)
+	print(debug_win_delay)
+	if Input.is_action_pressed("debug") && debug_win_delay > 0.2:
+		debug_win_delay = 0
+		$Debug.visible = !$Debug.visible
 
 #Debug
 func _on_Reroll_pressed():
@@ -110,10 +117,6 @@ func _on_ClearTeam_pressed():
 	for node in player_slots:
 		if node.get_node("Control").get_child_count() != 0:
 			node.get_node("Control").get_child(0).queue_free()
-
-func _on_Button_pressed():
-	game_state += 1
-	game_state = game_state % 2
 
 func _on_Battle_pressed():
 	reroll_enemies()

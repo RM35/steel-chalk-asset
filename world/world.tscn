@@ -189,6 +189,7 @@ pitch_scale = 3.4
 stream = ExtResource( 5 )
 
 [node name="Debug" type="Control" parent="."]
+visible = false
 margin_left = 74.0
 margin_top = 393.0
 margin_right = 303.0
@@ -219,7 +220,7 @@ __meta__ = {
 margin_left = 20.0
 margin_top = 30.0
 margin_right = 212.0
-margin_bottom = 237.0
+margin_bottom = 228.0
 
 [node name="Label" type="Label" parent="Debug/Panel/MarginContainer/VB"]
 margin_right = 192.0
@@ -237,48 +238,26 @@ custom_fonts/font = SubResource( 4 )
 text = "0.5"
 align = 1
 
-[node name="Gold" type="Label" parent="Debug/Panel/MarginContainer/VB"]
+[node name="HB" type="HBoxContainer" parent="Debug/Panel/MarginContainer/VB"]
 margin_top = 64.0
 margin_right = 192.0
-margin_bottom = 87.0
-size_flags_horizontal = 3
-size_flags_vertical = 6
-custom_fonts/font = SubResource( 3 )
-text = "GOLD:"
-align = 1
-valign = 1
-
-[node name="HB" type="HBoxContainer" parent="Debug/Panel/MarginContainer/VB"]
-margin_top = 91.0
-margin_right = 192.0
-margin_bottom = 114.0
-
-[node name="Level" type="Label" parent="Debug/Panel/MarginContainer/VB/HB"]
-margin_right = 61.0
-margin_bottom = 23.0
-size_flags_horizontal = 3
-size_flags_vertical = 6
-custom_fonts/font = SubResource( 3 )
-text = "LEVEL:"
-align = 1
-valign = 1
+margin_bottom = 84.0
 
 [node name="LevelUp" type="Button" parent="Debug/Panel/MarginContainer/VB/HB"]
-margin_left = 65.0
-margin_right = 126.0
-margin_bottom = 23.0
+margin_right = 94.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 
 [node name="LevelDown" type="Button" parent="Debug/Panel/MarginContainer/VB/HB"]
-margin_left = 130.0
+margin_left = 98.0
 margin_right = 192.0
-margin_bottom = 23.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 
 [node name="State" type="Label" parent="Debug/Panel/MarginContainer/VB"]
-margin_top = 118.0
+margin_top = 131.0
 margin_right = 192.0
-margin_bottom = 141.0
+margin_bottom = 154.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 custom_fonts/font = SubResource( 3 )
@@ -286,29 +265,52 @@ text = "STATE:"
 align = 1
 valign = 1
 
-[node name="Button" type="Button" parent="Debug/Panel/MarginContainer/VB"]
-margin_top = 145.0
-margin_right = 192.0
-margin_bottom = 174.0
-custom_fonts/font = SubResource( 5 )
-text = "Change State"
-
-[node name="Battle" type="Button" parent="Debug/Panel/MarginContainer/VB"]
-margin_top = 178.0
-margin_right = 192.0
-margin_bottom = 207.0
-custom_fonts/font = SubResource( 5 )
-text = "Start Battle"
-
 [node name="RoundTimer" type="Timer" parent="."]
 
 [node name="MoveDelay" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="MainInfo" type="Control" parent="."]
+margin_left = 219.0
+margin_top = 166.0
+margin_right = 371.0
+margin_bottom = 296.0
+
+[node name="Battle" type="Button" parent="MainInfo"]
+margin_left = -12.0
+margin_top = 31.0
+margin_right = 180.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 5 )
+text = "Start"
+
+[node name="Gold" type="Label" parent="MainInfo"]
+margin_left = -14.0
+margin_top = 65.0
+margin_right = 178.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+custom_fonts/font = SubResource( 3 )
+text = "GOLD:"
+align = 1
+valign = 1
+
+[node name="Level" type="Label" parent="MainInfo"]
+margin_left = 53.0
+margin_top = 89.0
+margin_right = 114.0
+margin_bottom = 112.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+custom_fonts/font = SubResource( 3 )
+text = "LEVEL:"
+align = 1
+valign = 1
+
 [connection signal="pressed" from="VB/ShopCards/VB/Reroll" to="." method="_on_Reroll_pressed"]
 [connection signal="pressed" from="VB/ShopCards/VB/ClearTeam" to="." method="_on_ClearTeam_pressed"]
 [connection signal="pressed" from="Debug/Panel/MarginContainer/VB/HB/LevelUp" to="." method="_on_LevelUp_pressed"]
 [connection signal="pressed" from="Debug/Panel/MarginContainer/VB/HB/LevelDown" to="." method="_on_LevelDown_pressed"]
-[connection signal="pressed" from="Debug/Panel/MarginContainer/VB/Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="Debug/Panel/MarginContainer/VB/Battle" to="." method="_on_Battle_pressed"]
 [connection signal="timeout" from="MoveDelay" to="." method="_on_MoveDelay_timeout"]
+[connection signal="pressed" from="MainInfo/Battle" to="." method="_on_Battle_pressed"]
