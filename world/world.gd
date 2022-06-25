@@ -1,7 +1,7 @@
 extends Control
 
 #'Global' vars. Maybe move to an autoloaded singleton
-var player_gold = 100
+var player_gold = 10
 var game_level = 1
 enum GAME_STATE{IDLE, BATTLE}
 var game_state = GAME_STATE.IDLE
@@ -67,14 +67,15 @@ func _process(delta):
 	debug_win_delay += delta
 	$MainInfo/Level.text = "GAME LEVEL: " + str(game_level)
 	$MainInfo/Gold.text = "GOLD: " + str(player_gold)
-	print(debug_win_delay)
 	if Input.is_action_pressed("debug") && debug_win_delay > 0.2:
 		debug_win_delay = 0
 		$Debug.visible = !$Debug.visible
 
 #Debug
-func _on_Reroll_pressed():
+func _on_Reroll_pressed(free: bool = false):
 	$RerollSFX.play()
+	if free:
+		player_gold + 2
 	if player_gold >= 2:
 		player_gold -= 2
 		for node in shop_slots:
@@ -115,6 +116,11 @@ func get_card():
 	
 func _on_ClearTeam_pressed():
 	for node in player_slots:
+		if node.get_node("Control").get_child_count() != 0:
+			node.get_node("Control").get_child(0).queue_free()
+
+func clear_shop():
+	for node in shop_slots:
 		if node.get_node("Control").get_child_count() != 0:
 			node.get_node("Control").get_child(0).queue_free()
 
@@ -180,11 +186,14 @@ func _on_MoveDelay_timeout():
 		end_battle()
 		game_level += 1
 		player_gold += 15
+		_on_Reroll_pressed(true)
 		return
 	if !player:
 		end_battle()
 		game_level = 1
 		player_gold = 10
+		clear_shop()
+		_on_Reroll_pressed(true)
 		return
 	enemy.battle_health -= player.attack
 	player.battle_health -= enemy.attack
@@ -274,3 +283,11 @@ func _on_LevelUp_pressed():
 
 func _on_LevelDown_pressed():
 	game_level -= 1
+
+
+func _on_Button_pressed():
+	end_battle()
+	game_level = 1
+	player_gold = 10
+	clear_shop()
+	_on_Reroll_pressed(true)

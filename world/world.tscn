@@ -189,7 +189,6 @@ pitch_scale = 3.4
 stream = ExtResource( 5 )
 
 [node name="Debug" type="Control" parent="."]
-visible = false
 margin_left = 74.0
 margin_top = 393.0
 margin_right = 303.0
@@ -247,17 +246,25 @@ margin_bottom = 84.0
 margin_right = 94.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
+text = "LEVELUP"
 
 [node name="LevelDown" type="Button" parent="Debug/Panel/MarginContainer/VB/HB"]
 margin_left = 98.0
 margin_right = 192.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
+text = "LEVELDOWN"
+
+[node name="TurnTimer" type="Label" parent="Debug/Panel/MarginContainer/VB"]
+margin_top = 88.0
+margin_right = 192.0
+margin_bottom = 102.0
+text = "TURN TIMER"
 
 [node name="State" type="Label" parent="Debug/Panel/MarginContainer/VB"]
-margin_top = 131.0
+margin_top = 140.0
 margin_right = 192.0
-margin_bottom = 154.0
+margin_bottom = 163.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 custom_fonts/font = SubResource( 3 )
@@ -308,9 +315,21 @@ text = "LEVEL:"
 align = 1
 valign = 1
 
+[node name="RoundTimer" type="Label" parent="MainInfo"]
+margin_right = 114.0
+margin_bottom = 27.0
+
+[node name="Button" type="Button" parent="MainInfo"]
+margin_left = 2.0
+margin_top = 123.0
+margin_right = 163.0
+margin_bottom = 143.0
+text = "Restart"
+
 [connection signal="pressed" from="VB/ShopCards/VB/Reroll" to="." method="_on_Reroll_pressed"]
 [connection signal="pressed" from="VB/ShopCards/VB/ClearTeam" to="." method="_on_ClearTeam_pressed"]
 [connection signal="pressed" from="Debug/Panel/MarginContainer/VB/HB/LevelUp" to="." method="_on_LevelUp_pressed"]
 [connection signal="pressed" from="Debug/Panel/MarginContainer/VB/HB/LevelDown" to="." method="_on_LevelDown_pressed"]
 [connection signal="timeout" from="MoveDelay" to="." method="_on_MoveDelay_timeout"]
 [connection signal="pressed" from="MainInfo/Battle" to="." method="_on_Battle_pressed"]
+[connection signal="pressed" from="MainInfo/Button" to="." method="_on_Button_pressed"]
