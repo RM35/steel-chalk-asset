@@ -1,11 +1,11 @@
 extends Control
 
 #'Global' vars. Maybe move to an autoloaded singleton
-var player_gold = 100
+var player_gold = 10
 var game_level = 1
 enum GAME_STATE{IDLE, BATTLE}
 var game_state = GAME_STATE.IDLE
-var move_delay = 0.5
+var move_delay = 0.8
 
 #Cards
 onready var unit_scene = preload("res://unit/unit.tscn")
@@ -27,6 +27,9 @@ var shop_slots: Array
 #Generating new cards
 export(Curve) var probability_curve: Curve
 var rng = RandomNumberGenerator.new()
+
+#Debug
+var debug_win_delay: float = 0
 
 func get_rarity():
 	rng.randomize()
@@ -57,24 +60,27 @@ func load_unit_data():
 	#preload all card types so they are not loaded on demand
 	for unit_type in card_types_paths:
 		var l_u_t = load(unit_type) # loaded_unit_type
-		print(l_u_t.rarity)
 		card_types[l_u_t.rarity][l_u_t.unit_name] = \
 			{"res": l_u_t, "pool_count": card_pools[l_u_t.rarity]}
 
 func _process(delta):
-	$Debug/Panel/MarginContainer/VB/HB/Level.text = "GAME LEVEL: " + str(game_level)
-	$Debug/Panel/MarginContainer/VB/Gold.text = "GOLD: " + str(player_gold)
-	$Debug/Panel/MarginContainer/VB/State.text = "STATE: " + str(game_state)
+	debug_win_delay += delta
+	$MainInfo/Level.text = "GAME LEVEL: " + str(game_level)
+	$MainInfo/Gold.text = "GOLD: " + str(player_gold)
+	if Input.is_action_pressed("debug") && debug_win_delay > 0.2:
+		debug_win_delay = 0
+		$Debug.visible = !$Debug.visible
 
 #Debug
-func _on_Reroll_pressed():
+func _on_Reroll_pressed(free: bool = false):
 	$RerollSFX.play()
+	if free:
+		player_gold += 2
 	if player_gold >= 2:
 		player_gold -= 2
 		for node in shop_slots:
 			if node.get_node("Control").get_child_count() != 0:
 				node.get_node("Control").get_child(0).queue_free()
-			#Equally random for now
 			var unit = unit_scene.instance()
 			rng.randomize()
 			unit.unit_type = get_card()
@@ -85,10 +91,8 @@ func _on_Reroll_pressed():
 func get_card():
 	#First get rarity
 	var rarity_roll = rng.randi_range(0, 99)
-	var current_chances = card_chances[game_level]
+	var current_chances = card_chances[clamp((game_level/3), 1, 5)]
 	var _rarity = 0
-	print(rarity_roll)
-	print("CUR CHANCES: " + str(current_chances))
 	if rarity_roll <= current_chances[0] - 1:
 		#Uncommon
 		_rarity = 0
@@ -101,7 +105,6 @@ func get_card():
 	elif rarity_roll <= current_chances[3] - 1:
 		#Legend
 		_rarity = 3
-	print(_rarity)
 		
 	#Build pool, doing this with array of all cards.
 	var pool_cards = []
@@ -116,9 +119,10 @@ func _on_ClearTeam_pressed():
 		if node.get_node("Control").get_child_count() != 0:
 			node.get_node("Control").get_child(0).queue_free()
 
-func _on_Button_pressed():
-	game_state += 1
-	game_state = game_state % 2
+func clear_shop():
+	for node in shop_slots:
+		if node.get_node("Control").get_child_count() != 0:
+			node.get_node("Control").get_child(0).queue_free()
 
 func _on_Battle_pressed():
 	reroll_enemies()
@@ -170,25 +174,120 @@ func end_battle():
 			var unit = node.get_node("Control").get_child(0)
 			unit.battle_health = unit.health
 			unit.alive = true
+	$MoveDelay.stop()
 
 #Main battle logic
 func _on_MoveDelay_timeout():
+	$MoveDelay.wait_time = move_delay
 	var enemy = get_next_alive_enemy()
 	var player = get_next_alive_player()
-	if !(enemy && player):
+	if !enemy:
 		end_battle()
+		game_level += 1
+		player_gold += 15
+		_on_Reroll_pressed(true)
+		return
+	if !player:
+		end_battle()
+		game_level = 1
+		player_gold = 10
+		clear_shop()
+		_on_Reroll_pressed(true)
 		return
 	enemy.battle_health -= player.attack
 	player.battle_health -= enemy.attack
+	trig_on_damage(player, "player")
+	trig_on_damage(enemy, "enemy")
 	enemy.play_attack_tween()
 	player.play_attack_tween()
-	if player.battle_health <= 0: player.alive = false
-	if enemy.battle_health <= 0: enemy.alive = false
+	trig_on_attack(player, "player")
+	trig_on_attack(enemy, "enemy")
+	if player.battle_health <= 0:
+		trig_on_faint(player, "player")
+		player.alive = false
+	if enemy.battle_health <= 0:
+		trig_on_faint(enemy, "enemy")
+		enemy.alive = false
 
+# Ability triggers
+func trig_on_sell(unit, team):
+	if unit.unit_type.ability_trigger == 0:
+		ability_output(unit, unit.unit_type.ability_parameters, team)
+
+func trig_on_buy(unit, team):
+	if unit.unit_type.ability_trigger == 1:
+		ability_output(unit, unit.unit_type.ability_parameters, team)
+
+func trig_on_faint(unit, team):
+	if unit.unit_type.ability_trigger == 2:
+		ability_output(unit, unit.unit_type.ability_parameters, team)
+		
+func trig_on_damage(unit, team):
+	if unit.unit_type.ability_trigger == 3:
+		ability_output(unit, unit.unit_type.ability_parameters, team)
+
+func trig_on_attack(unit, team):
+	if unit.unit_type.ability_trigger == 4:
+		ability_output(unit, unit.unit_type.ability_parameters, team)
+
+# Ability outputs
+func ability_output(unit, value: int, team):
+	$MoveDelay.wait_time += move_delay
+	match unit.unit_type.ability_output:
+		0:
+			#Not implemented
+			print("OUTPUT DAMAGE")
+		1:
+			#Heal next alive ally for now
+			var deck = null
+			if team == "player":
+				deck = player_slots
+			else:
+				deck = enemy_slots
+			for node in deck:
+				if node.get_node("Control").get_child_count() != 0:
+					if node.get_node("Control").get_child(0).battle_health > 0:
+						if node.get_node("Control").get_child(0) != unit:
+							node.get_node("Control").get_child(0).battle_health += value
+		2:
+			unit.attack += value
+		3:
+			if team == "player":
+				player_gold += value
+				$GoldSFX.play()
+		4:
+			#Not implemented
+			print("OUTPUT SUMMON NEW")
+		5:
+			var deck = null
+			if team == "player":
+				deck = enemy_slots
+			else:
+				deck = player_slots
+			for node in deck:
+				if node.get_node("Control").get_child_count() != 0:
+					var unit_node = node.get_node("Control").get_child(0)
+					if unit_node.battle_health > 0:
+						unit_node.battle_health -= value
+						if unit_node.battle_health <= 0 && team == "enemy":
+							trig_on_faint(unit_node, "player")
+							unit_node.alive = false
+						if unit_node.battle_health <= 0 && team == "player":
+							trig_on_faint(unit_node, "enemy")
+							unit_node.alive = false
+	return false
 
 func _on_LevelUp_pressed():
 	game_level += 1
 
-
 func _on_LevelDown_pressed():
 	game_level -= 1
+
+
+func _on_Button_pressed():
+	end_battle()
+	game_level = 1
+	player_gold = 10
+	_on_ClearTeam_pressed()
+	clear_shop()
+	_on_Reroll_pressed(true)

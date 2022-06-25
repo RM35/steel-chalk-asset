@@ -4,13 +4,13 @@
 
 [resource]
 script = ExtResource( 1 )
-unit_name = "SKULL"
-health = 4
+unit_name = "SWORD"
+health = 5
 attack = 1
 level = 1
 cost = 0
 rarity = 0
-sprite_region_rect = Rect2( 0, 0, 32, 32 )
-ability_trigger = 3
+sprite_region_rect = Rect2( 32, 160, 32, 32 )
+ability_trigger = 4
 ability_output = 2
 ability_parameters = 1

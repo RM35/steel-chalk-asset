@@ -2,16 +2,15 @@
 
 [ext_resource path="res://unit/unit_stats.gd" type="Script" id=1]
 
-
 [resource]
 script = ExtResource( 1 )
-unit_name = "FRIENDLY_CAT"
-health = 100
-attack = 50
+unit_name = "EVIL"
+health = 40
+attack = 5
 level = 1
-cost = 99
+cost = 0
 rarity = 3
 sprite_region_rect = Rect2( 128, 0, 32, 32 )
-ability_trigger = 1
+ability_trigger = 3
 ability_output = 0
-ability_parameters = 45
+ability_parameters = 5

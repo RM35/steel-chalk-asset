@@ -12,6 +12,10 @@ var sprite_region_rect: Rect2
 enum SLOT_TYPE{PLAYER, SHOP, ENEMY, NONE}
 export(SLOT_TYPE) var slot_type = SLOT_TYPE.NONE
 
+#Ability enums (from unit_stats.gd)
+enum ABILITY_TRIGGER{ON_SELL, ON_BUY, ON_FAINT, ON_DAMAGE, ON_ATTACK, NONE}
+enum ABILITY_OUTPUT{DAMAGE, CHANGE_HEALTH, CHANGE_ATTACK, CHANGE_GOLD, SUMMON_NEW, AOE_DAMAGE, NONE}
+
 #Battle
 var battle_health = 0
 var alive = true
@@ -32,7 +36,10 @@ func _ready():
 	sprite_region_rect = unit_type.sprite_region_rect
 	battle_health = health
 	update_card()
-	test_trig()
+	
+	#Set tooltip text
+	$TT/Label.text = "TRIGGER:\n" + str(ABILITY_TRIGGER.keys()[unit_type.ability_trigger])\
+					 + "\nOUTPUT:\n" + str(ABILITY_OUTPUT.keys()[unit_type.ability_output])
 
 func _process(_delta):
 	if !alive:
@@ -93,48 +100,6 @@ func can_drop_data(vec2, variant):
 	variant.slot_type == SLOT_TYPE.PLAYER) && \
 	self.slot_type == SLOT_TYPE.PLAYER
 
-# Ability triggers
-func trig_on_sell():
-	if unit_type.ability_trigger == 0:
-		print("ON SELL TRIGGERED")
-		ability_output(unit_type.ability_parameters)
-
-func trig_on_buy():
-	if unit_type.ability_trigger == 1:
-		print("ON BUY TRIGGERED")
-		ability_output(unit_type.ability_parameters)
-
-func trig_on_faint():
-	if unit_type.ability_trigger == 2:
-		print("ON FAINT TRIGGERED")
-		ability_output(unit_type.ability_parameters)
-		
-func trig_on_damage():
-	if unit_type.ability_trigger == 3:
-		print("ON DAMAGE TRIGGERED")
-		ability_output(unit_type.ability_parameters)
-
-func trig_on_attack():
-	if unit_type.ability_trigger == 4:
-		print("ON ATTACK TRIGGERED")
-		ability_output(unit_type.ability_parameters)
-
-# Ability outputs
-func ability_output(value: int):
-	match unit_type.ability_output:
-		0:
-			print("OUTPUT DAMAGE")
-		1:
-			print("OUTPUT HEALTH")
-		2:
-			print("OUTPUT CHANGE ATTACK")#
-		3:
-			print("OUTPUT CHANGE GOLD")
-		4:
-			print("OUTPUT SUMMON NEW")
-		5:
-			print("OUTPUT AOE DAMAGE")
-
 func play_attack_tween():
 	$DropSFX.play()
 	if !$Tween.is_active():
@@ -145,11 +110,8 @@ func play_attack_tween():
 		$Tween.interpolate_property(self, "rect_position", self.rect_position, rect_pos_origin, world.move_delay / 2, Tween.TRANS_LINEAR)
 		$Tween.start()
 
+func _on_Unit_mouse_entered():
+	$TT.visible = true
 	
-# Debug/Dev Functions
-func test_trig():
-	trig_on_attack()
-	trig_on_buy()
-	trig_on_damage()
-	trig_on_faint()
-	trig_on_sell()
+func _on_Unit_mouse_exited():
+	$TT.visible = false 
