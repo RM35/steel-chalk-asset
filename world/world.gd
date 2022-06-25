@@ -128,7 +128,6 @@ func _on_Battle_pressed():
 	reroll_enemies()
 	if get_next_alive_enemy() && get_next_alive_player():
 		#Start the battle
-		game_level = 1
 		game_state = 1
 		move_delay = float($Debug/Panel/MarginContainer/VB/LineEdit.text)
 		$MoveDelay.wait_time = move_delay
